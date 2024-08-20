@@ -47,7 +47,8 @@ def make_dicts(cursor, row):
 @app.route("/")
 @app.route("/home")
 def home():
-    pass
+    if "username" in 
+    render_template("home.html")
 
 
 @app.route("/login")
