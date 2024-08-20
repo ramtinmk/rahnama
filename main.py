@@ -55,13 +55,18 @@ def home():
     return render_template("home.html",is_logged=is_logged)
 
 
-@app.route("/login",methods=["POST"])
+@app.route("/login")
 def login():
-    pass
 
-@app.route("/login-post")
+    return render_template("login.html")
+
+@app.route("/login-post",methods=["POST"])
 def login_post():
-    pass
+    username = request.form["fname"]
+
+    password = request.form["lname"]
+
+    return f"{username} , {password} login"
 
 
 @app.route("/signup")
