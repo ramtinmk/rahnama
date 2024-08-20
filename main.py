@@ -5,8 +5,14 @@ import os
 import json
 import sqlite3
 from flask import g
+import logging
+
+
+# logging.basicConfig(filename='record.log', level=logging.WARNING)
 
 app = Flask(__name__)
+
+
 
 
 
@@ -49,9 +55,10 @@ def make_dicts(cursor, row):
 def home():
     is_logged = False
 
-    # if "username" in session["username"]:
-    #     is_logged = True
-    
+    if "username" in session["username"]:
+        is_logged = True
+    app.logger.info("the user ramtin is in home")
+
     return render_template("home.html",is_logged=is_logged)
 
 
@@ -77,10 +84,41 @@ def signup():
 
 @app.route("/signup-post",methods=["POST"])
 def signup_post():
-    name = request.form["fname"]
-    last_name = request.form["lname"]
+    has_account = False
+    email = request.form["email"]
+    password = request.form["password"]
 
-    return f"{name} {last_name}"
+    hashed_password = generate_password_hash(password)
+
+    username = email.split("@")[0]
+    user_have_account = query_db("select email from Users where email = ?",[email],one=True)
+
+    db = get_db()
+    cursor = db.cursor()
+
+    if user_have_account is not None:
+        has_account = True
+    
+    if not has_account:
+        try:
+            cursor.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+                (username, email, hashed_password))
+            db.commit()
+
+        except sqlite3.Error as e:
+            app.logger.error(e)
+        finally:
+            db.close()
+            session["username"] = username
+            return redirect("/home")
+    else:
+        flash("the user has been already taken with this email")
+        return redirect("/signup")
+
+
+
+
+    
 
 @app.route("/posts/<post_id>")
 def posts():
