@@ -69,11 +69,21 @@ def login():
 
 @app.route("/login-post",methods=["POST"])
 def login_post():
-    username = request.form["fname"]
+    redirecting_url = "/login"
+    email = request.form["email"]
+    password = request.form["password"]
+    
+    user = query_db("select * from Users where email = ?",args=[email],one=True)
+    if user and check_password_hash(user['password'], password):
+        session["username"] = user["username"]
+        redirecting_url = "/home"
+    
+    if redirecting_url == "/login":
+        flash("Incorrect username or password.",category="error")
+        return redirect(redirecting_url)
+    
+    return redirect(redirecting_url)
 
-    password = request.form["lname"]
-
-    return f"{username} , {password} login"
 
 
 @app.route("/signup")
