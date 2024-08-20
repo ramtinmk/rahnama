@@ -124,6 +124,27 @@ def signup_post():
 def posts():
     pass
 
+@app.route("/questions")
+def questions():
+ # Get the current page number, default to 1 if not provided
+    page = request.args.get('page', 1, type=int)
+    per_page = 5  # Number of items to show per page
+    
+    # Calculate the offset (how many rows to skip)
+    offset = (page - 1) * per_page
+    
+    # Query the database to get the posts for the current page
+    db = get_db()
+    cursor = db.execute('SELECT * FROM posts LIMIT ? OFFSET ?', (per_page, offset))
+    posts = cursor.fetchall()
+
+    # Get the total number of posts to calculate total pages
+    total_posts = db.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
+
+    total_pages = (total_posts + per_page - 1) // per_page  # Total pages
+
+    # Render the template and pass the posts, current page, and total pages
+    return render_template("questions.html", posts=posts, page=page, total_pages=total_pages) 
 
 
 
