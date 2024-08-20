@@ -47,11 +47,15 @@ def make_dicts(cursor, row):
 @app.route("/")
 @app.route("/home")
 def home():
-    if "username" in 
-    render_template("home.html")
+    is_logged = False
+
+    # if "username" in session["username"]:
+    #     is_logged = True
+    
+    return render_template("home.html",is_logged=is_logged)
 
 
-@app.route("/login")
+@app.route("/login",methods=["POST"])
 def login():
     pass
 
@@ -62,12 +66,16 @@ def login_post():
 
 @app.route("/signup")
 def signup():
-    pass
+    
+    return render_template("signup.html")
 
 
-@app.route("/signup-post")
+@app.route("/signup-post",methods=["POST"])
 def signup_post():
-    pass
+    name = request.form["fname"]
+    last_name = request.form["lname"]
+
+    return f"{name} {last_name}"
 
 @app.route("/posts/<post_id>")
 def posts():
