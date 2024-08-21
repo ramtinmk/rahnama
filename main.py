@@ -131,8 +131,15 @@ def signup_post():
     
 
 @app.route("/posts/<post_id>")
-def posts():
-    pass
+def posts(post_id):
+    
+    
+
+    post = query_db("select * from posts where post_id = ?",[post_id])
+
+    return render_template("post.html",post=post)
+
+
 
 @app.route("/questions")
 def questions():
