@@ -32,7 +32,7 @@ app.secret_key = secrets.token_hex(16)
 def home():
     is_logged = False
 
-    if "username" in session["username"]:
+    if "username" in session:
         is_logged = True
     app.logger.info("the user ramtin is in home")
 
@@ -51,6 +51,7 @@ def login_post():
     password = request.form["password"]
     
     user = query_db("select * from Users where email = ?",args=[email],one=True)
+    print(user)
     if user and check_password_hash(user['password'], password):
         session["username"] = user["username"]
         redirecting_url = "/home"
@@ -58,7 +59,6 @@ def login_post():
     if redirecting_url == "/login":
         flash("Incorrect username or password.",category="error")
         return redirect(redirecting_url)
-    
     return redirect(redirecting_url)
 
 
