@@ -139,6 +139,46 @@ def posts(post_id):
 
     return render_template("post.html",post=post)
 
+@app.route("/questions/ask")
+def ask_question():
+    
+    return render_template("ask_question.html")
+
+@app.route("/save_post", methods=['POST'])
+def save_post():
+    post_data = request.json
+    title = post_data["title"]
+    body = post_data["body"]
+    tags = post_data["tags"]
+    username = session["username"]
+
+    user_id = query_db("select user_id from Users where username = ?",[username],one=True)["user_id"]
+
+    db = get_db()
+    cursor = db.cursor()
+    try:
+        cursor.execute("INSERT INTO Posts (user_id,title,body) VALUES (?,?,?);",(user_id,title,body))
+        db.commit()
+    except sqlite3.Error as e:
+        app.logger.error(e)
+        flash(e)
+    
+    try: 
+        post_id = query_db("select post_id from Posts where user_id = ?",[user_id],one=True)["post_id"]
+
+        
+        for tag in tags:
+            tag_id = query_db("select tag_id from Tags where tag_name = ?",[tag],one=True)["tag_id"]
+            cursor.execute("INSERT INTO PostTags (post_id,tag_id) VALUES (?,?);"(post_id,tag_id))
+    except sqlite3.Error as e:
+        app.logger.error(e)
+        flash(e)
+        
+    redirecting_url = url_for("/posts",post_id=post_id)
+
+    return redirect(redirecting_url)
+
+
 
 
 @app.route("/questions")
