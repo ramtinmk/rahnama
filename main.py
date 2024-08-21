@@ -110,11 +110,20 @@ def signup_post():
 @app.route("/posts/<post_id>")
 def posts(post_id):
     
+    page = request.args.get('page', 1, type=int)
+    per_page = 5  # Number of items to show per page
+
+    offset = (page - 1) * per_page
+
+    post = query_db("select * from posts where post_id = ?",[post_id],one=True)
     
+    comments = query_db("select * from Comments where post_id = ? limit ? offset ?",[post_id,per_page,offset])
+    # Get the total number of posts to calculate total pages
+    total_comments = query_db('SELECT COUNT(*) FROM Comments where post_id = ?',[post_id],one=True)
 
-    post = query_db("select * from posts where post_id = ?",[post_id])
+    total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
-    return render_template("post.html",post=post)
+    return render_template("post.html",post=post,comments=comments,total_pages=total_pages)
 
 @app.route("/questions/ask")
 def ask_question():
