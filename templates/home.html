@@ -13,11 +13,12 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand " href="#">MySite</a>
+            <a class="navbar-brand " href="#">Solve It Space</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <img src=""
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -39,8 +40,12 @@
                     </li>
                 </ul>
                 {% else %}
-                
-                
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+
                 {% endif %}
             </div>
         </div>
@@ -50,22 +55,18 @@
     <div class="d-flex">
         <nav id="sidebar" class="bg-light border-end">
             <div class="p-4 pt-5">
+                {% if is_logged %}
                 <h5>Profile</h5>
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="#">Profile Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Profile Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Profile Link 3</a>
-                    </li>
+                        <a href="/yourprofile">Your profile</a>
                 </ul>
+                {% else %}
+                {% endif %}
                 <hr>
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="#">Other Link 1</a>
+                        <a href="/questions">questions</a>
                     </li>
                     <li>
                         <a href="#">Other Link 2</a>
@@ -76,11 +77,15 @@
 
         <!-- Main Content -->
         <div class="container-fluid p-4" id="main-content">
-            <h1>Welcome to MySite</h1>
+            {% if is_logged %}
+            <h1>Welcome {{username}}</h1>
             <p>Here is your content...</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec venenatis lorem.</p>
             <p>Scroll down to see the sticky navbar effect.</p>
             <p>More content...</p>
+            {% else %}
+
+            {% endif %}
             <!-- Add more content here to enable scrolling -->
         </div>
     </div>
