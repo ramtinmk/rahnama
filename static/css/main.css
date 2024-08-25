@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'poppins' , sans-serif;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin-top: 56px; /* Height of the navbar */
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 56px; /* Adjust this value to match navbar height */
+    left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: all 0.3s;
+}
+
+#main-content {
+    margin-left: 250px;
+    transition: all 0.3s;
+    padding-top: 60px; /* Extra padding to avoid navbar overlap */
+}
+
+@media (max-width: 992px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    #main-content {
+        margin-left: 0;
+    }
+}
