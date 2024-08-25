@@ -13,12 +13,11 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark  fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand " href="#">Solve It Space</a>
+            <img src="../static/images/fc93453056354554a430b7c9694fada9-free.png" alt="logo" class="logo">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <img src=""
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -53,7 +52,7 @@
 
     <!-- Sidebar -->
     <div class="d-flex">
-        <nav id="sidebar" class="bg-light border-end">
+        <nav id="sidebar" class=" border-end">
             <div class="p-4 pt-5">
                 {% if is_logged %}
                 <h5>Profile</h5>
@@ -69,7 +68,7 @@
                         <a href="/questions">questions</a>
                     </li>
                     <li>
-                        <a href="#">Other Link 2</a>
+                        <a href="#">About Us</a>
                     </li>
                 </ul>
             </div>
@@ -79,10 +78,15 @@
         <div class="container-fluid p-4" id="main-content">
             {% if is_logged %}
             <h1>Welcome {{username}}</h1>
-            <p>Here is your content...</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec venenatis lorem.</p>
-            <p>Scroll down to see the sticky navbar effect.</p>
-            <p>More content...</p>
+                <p class="h2">Solve It Space</p><p> is a dynamic online platform where curious minds converge to ask questions, share knowledge, and find solutions. Whether you're looking for expert advice, seeking help with a specific problem, or eager to assist others by sharing your expertise, Solve It Space provides a collaborative environment for learning and problem-solving. Join our community to explore diverse topics, contribute to meaningful discussions, and connect with people who are passionate about finding answers. At Solve It Space, every question has a solution, and every solution opens a new door to discovery.</p>
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="../static/images/fc93453056354554a430b7c9694fada9-free.png" alt="Card image">
+                    <div class="card-body">
+                      <h4 class="card-title">Solve It Space</h4>
+                      <p class="card-text">Ask and Anser </p>
+                      <a href="/questions" class="btn btn-primary">Get start</a>
+                    </div>
+                  </div>
             {% else %}
 
             {% endif %}

@@ -188,3 +188,9 @@ body {
 .box form input[type='submit']:active{
   opacity: 0.8 ;
 }
+.login-container{
+  display: inline;
+  width: 300px;
+  margin: 100px auto;
+  text-align: center;
+}
