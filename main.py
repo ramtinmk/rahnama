@@ -6,6 +6,8 @@ import json
 import logging
 from database_utils import *
 from flask import g
+import re
+
 
 app = Flask(__name__)
 
@@ -23,6 +25,14 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
+def is_valid_email(email: str) -> bool:
+    # Regular expression for validating an Email
+    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    
+    # Returns True if the string matches the email pattern, else False
+    return re.match(email_regex, email) is not None
+
+
 
 app.secret_key = secrets.token_hex(16)
 
@@ -31,12 +41,13 @@ app.secret_key = secrets.token_hex(16)
 @app.route("/home")
 def home():
     is_logged = False
-
+    username = None
     if "username" in session:
         is_logged = True
+        username = session["username"]
     app.logger.info("the user ramtin is in home")
 
-    return render_template("home.html",is_logged=is_logged)
+    return render_template("home.html",is_logged=is_logged,username=username)
 
 
 @app.route("/login")
@@ -47,11 +58,18 @@ def login():
 @app.route("/login-post",methods=["POST"])
 def login_post():
     redirecting_url = "/login"
-    email = request.form["email"]
-    password = request.form["password"]
     
-    user = query_db("select * from Users where email = ?",args=[email],one=True)
-    print(user)
+
+    input = request.form["email_or_username"]
+
+    is_email = is_valid_email(input)
+
+    password = request.form["password"]
+    if is_email:
+        user = query_db("select * from Users where email = ?",args=[input],one=True)
+    else:
+        user = query_db("select * from Users where username = ?",args=[input],one=True)
+    
     if user and check_password_hash(user['password'], password):
         session["username"] = user["username"]
         redirecting_url = "/home"
@@ -72,12 +90,12 @@ def signup():
 @app.route("/signup-post",methods=["POST"])
 def signup_post():
     has_account = False
+    username = request.form["Username"]
     email = request.form["email"]
     password = request.form["password"]
 
     hashed_password = generate_password_hash(password)
-
-    username = email.split("@")[0]
+    
     user_have_account = query_db("select email from Users where email = ?",[email],one=True)
 
     db = get_db()
@@ -88,7 +106,7 @@ def signup_post():
     
     if not has_account:
         try:
-            cursor.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+            cursor.execute('INSERT INTO Users (username, email, password) VALUES (?, ?, ?)',
                 (username, email, hashed_password))
             db.commit()
 
