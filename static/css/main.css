@@ -9,7 +9,9 @@ body {
     font-family: Arial, sans-serif;
     margin-top: 56px; /* Height of the navbar */
 }
-
+.navbar{
+    background-color: #d93e5b;
+}
 #sidebar {
     min-width: 250px;
     max-width: 250px;
