@@ -195,14 +195,16 @@ def questions():
     offset = (page - 1) * per_page
     
     # Query the database to get the posts for the current page
+    print(per_page,offset)
     db = get_db()
-    cursor = db.execute('SELECT * FROM posts LIMIT ? OFFSET ?', (per_page, offset))
-    posts = cursor.fetchall()
+    cursor = db.cursor()
+    posts = cursor.execute('SELECT * FROM Posts LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
 
     # Get the total number of posts to calculate total pages
     total_posts = db.execute('SELECT COUNT(*) as count FROM Posts').fetchone()['count']
     total_pages = (total_posts + per_page - 1) // per_page  # Total pages
 
+    print(posts)
     # Render the template and pass the posts, current page, and total pages
     return render_template("questions.html", posts=posts, page=page, total_pages=total_pages) 
 
