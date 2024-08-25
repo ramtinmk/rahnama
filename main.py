@@ -95,7 +95,7 @@ def signup_post():
     password = request.form["password"]
 
     hashed_password = generate_password_hash(password)
-    
+
     user_have_account = query_db("select email from Users where email = ?",[email],one=True)
 
     db = get_db()
@@ -200,14 +200,17 @@ def questions():
     posts = cursor.fetchall()
 
     # Get the total number of posts to calculate total pages
-    total_posts = db.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
-
+    total_posts = db.execute('SELECT COUNT(*) as count FROM Posts').fetchone()['count']
     total_pages = (total_posts + per_page - 1) // per_page  # Total pages
 
     # Render the template and pass the posts, current page, and total pages
     return render_template("questions.html", posts=posts, page=page, total_pages=total_pages) 
 
 
+@app.route("/logout")
+def logout():
+    session.pop("username","")
+    return redirect("/home")
 
 
 if __name__ == '__main__':
