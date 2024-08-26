@@ -16,8 +16,8 @@ body {
 .box {
   position: relative;
   width: 380px;
-  height: 480px;
-  background-color:#BBDEFB ;
+  height: 500px;
+  background: color #f9f9f6;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -28,7 +28,7 @@ body {
   left: -50%;
   width: 380px;
   height: 420px;
-  background:linear-gradient(0deg,transparent, transparent,#af1fe4,#af1fe4,#af1fe4) ;
+  background:linear-gradient(0deg,transparent, transparent,#d93e5b,#d93e5b,#d93e5b) ;
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -41,7 +41,7 @@ body {
   left: -50%;
   width: 380px;
   height: 420px;
-  background:linear-gradient(0deg,transparent, transparent,#af1fe4,#af1fe4,#af1fe4) ;
+  background:linear-gradient(0deg,transparent, transparent,#d93e5b,#d93e5b,#d93e5b) ;
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -59,7 +59,7 @@ body {
   left: -50%;
   width: 380px;
   height: 420px;
-  background:linear-gradient(0deg,transparent, transparent,#0D47A1,#0D47A1,#0D47A1) ;
+  background:linear-gradient(0deg,transparent, transparent,#64bedb,#64bedb,#64bedb) ;
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -73,7 +73,7 @@ body {
   left: -50%;
   width: 380px;
   height: 420px;
-  background:linear-gradient(0deg,transparent, transparent,#291fe4,#291fe4,#6e1fe4) ;
+  background:linear-gradient(0deg,transparent, transparent,#64bedb,#64bedb,#64bedb) ;
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -93,7 +93,7 @@ body {
 .box form{
   position: absolute;
   inset: 4px;
-  background:#BBDEFB;
+  background:#f9f9f4;
   padding: 50px 40px;
   border-radius: 10px;
   z-index: 2;
@@ -102,7 +102,7 @@ body {
 
 }
  .box form h2{
-  color:#FFFFFF;
+  color:#0D47A1;
   font-weight: 500;
   text-align: center;
   letter-spacing: 0.1em;
@@ -121,7 +121,7 @@ body {
   outline: none;
   border: none;
   box-shadow: none;
-  color:#bde9f1 ;
+  color:#0D47A1 ;
   font-size: 1em;
   letter-spacing: 0.05em;
   transition: 0.5s;
@@ -139,7 +139,7 @@ body {
 }
 .box form .inputbox input:valid ~span,
 .box form .inputbox input:focus ~span{
-  color: #C7AC79;
+  color: #0D47A1;
   font-size: 0.75em;
   transform: translateY(-34px);
 }
@@ -177,21 +177,25 @@ body {
   border: none;
   outline: none;
   padding: 9px 25px;
-  background: #1976D2;
+  background: #bde9f1;
   cursor: pointer;
   font-size: 0.9em;
   border-radius: 5px;
   font-weight: 600;
   margin-top: 10px;
-  color: #FFFFFF;
+  color: #0D47A1;
 }
 .box form input[type='submit']:active{
-  opacity: 0.8 ;
+  opacity: 0.7 ;
 }
 .login-container{
   display: inline;
   width: 300px;
   margin: 100px auto;
   text-align: center;
+  color: #0D47A1;
+}
+.login_option{
+  margin-top:20px;
   color: #0D47A1;
 }
