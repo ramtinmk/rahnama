@@ -188,12 +188,12 @@ def posts(post_id):
 
     user_posted_id =  query_db("select user_id from Posts where post_id = ?",args=[post_id],one=True)["user_id"]
 
-    username_posted = query_db("select username from Users where user_id = ?",args=[user_posted_id],one=True)
+    username_posted = query_db("select username from Users where user_id = ?",args=[user_posted_id],one=True)["username"]
 
     tag_ids = query_db("select tag_id from PostTags where post_id = ?",args=[post_id])
     tags = []
     for id in tag_ids:
-        tags.append(query_db("select tag_name from Tags where tag_id = ?",args=[id["tag_id"]])["tag_name"])
+        tags.append(query_db("select tag_name from Tags where tag_id = ?",args=[id["tag_id"]],one=True)["tag_name"])
 
     upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ?",[post_id],one=True)["upvote_count"]
 
@@ -303,6 +303,7 @@ def upvote():
     finally:
         db.close()
     
+    return jsonify({"status":"ok"})
 
         
 
