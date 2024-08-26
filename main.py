@@ -63,9 +63,12 @@ def home():
     username = None
     if "email" in session:
         is_logged = True
-        username = query_db("select username from Users where email = ?",args=[session["email"]],one=True)["username"]
+        username = query_db("select username from Users where email = ?",args=[session["email"]],one=True)
         if username is None:
             username = session["email"].split("@")[0]
+        else:
+            username = username["username"]
+        session["username"] = username
     else:
         if "username" in session:
             is_logged = True
