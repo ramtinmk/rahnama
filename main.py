@@ -180,15 +180,21 @@ def posts(post_id):
 
     offset = (page - 1) * per_page
 
-    post = query_db("select * from posts where post_id = ?",[post_id],one=True)
+    post = query_db("select * from Posts where post_id = ?",[post_id],one=True)
     
     comments = query_db("select * from Comments where post_id = ? limit ? offset ?",[post_id,per_page,offset])
     # Get the total number of posts to calculate total pages
-    total_comments = query_db('SELECT COUNT(*) FROM Comments where post_id = ?',[post_id],one=True)
+    total_comments = query_db('SELECT COUNT(*) as count FROM Comments where post_id = ?',[post_id],one=True)["count"]
+
+    print(post,comments,total_comments)
 
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
-    return render_template("post.html",post=post,comments=comments,total_pages=total_pages)
+    try:
+        return render_template("post.html",post=post)
+    except Exception as e:
+        print(f"Error rendering template: {e}")
+        return "Failed to render template", 500
 
 @app.route("/questions/ask")
 def ask_question():
@@ -203,31 +209,32 @@ def save_post():
     tags = post_data["tags"]
     username = session["username"]
 
-    user_id = query_db("select user_id from Users where username = ?",[username],one=True)["user_id"]
+    user_id = query_db("SELECT user_id FROM Users WHERE username = ?", [username], one=True)["user_id"]
 
     db = get_db()
     cursor = db.cursor()
     try:
-        cursor.execute("INSERT INTO Posts (user_id,title,body) VALUES (?,?,?);",(user_id,title,body))
+        # Insert the post
+        cursor.execute("INSERT INTO Posts (user_id, title, body) VALUES (?, ?, ?);", (user_id, title, body))
         db.commit()
-    except sqlite3.Error as e:
-        app.logger.error(e)
-        flash(e)
-    
-    try: 
-        post_id = query_db("select post_id from Posts where user_id = ?",[user_id],one=True)["post_id"]
-
         
+        # Get the post_id of the newly inserted post
+        post_id = query_db("SELECT MAX(post_id) as new_post_id FROM Posts", one=True)["new_post_id"]
+        
+        # Insert tags
         for tag in tags:
-            tag_id = query_db("select tag_id from Tags where tag_name = ?",[tag],one=True)["tag_id"]
-            cursor.execute("INSERT INTO PostTags (post_id,tag_id) VALUES (?,?);",(post_id,tag_id))
+            tag_id = query_db("SELECT tag_id FROM Tags WHERE tag_name = ?", [tag], one=True)["tag_id"]
+            cursor.execute("INSERT INTO PostTags (post_id, tag_id) VALUES (?, ?);", (post_id, tag_id))
+        
+        db.commit()
+
     except sqlite3.Error as e:
+        db.rollback()
         app.logger.error(e)
-        flash(e,category="error")
+        return jsonify({"error": str(e)}), 500
 
-    redirecting_url = url_for("/posts",post_id=post_id)
-
-    return redirect(redirecting_url)
+    # Return the post_id as a JSON response
+    return jsonify({"post_id": post_id})
 
 
 
@@ -242,7 +249,7 @@ def questions():
     offset = (page - 1) * per_page
     
     # Query the database to get the posts for the current page
-    print(per_page,offset)
+    # print(per_page,offset)
     db = get_db()
     cursor = db.cursor()
     posts = cursor.execute('SELECT * FROM Posts LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
