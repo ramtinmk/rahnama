@@ -303,6 +303,7 @@ def upvote():
     finally:
         db.close()
     
+    return jsonify({"status":"ok"})
 
         
 
