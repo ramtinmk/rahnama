@@ -26,16 +26,22 @@
          </div>
          <div class="links">
             <a href="#" >Forgot Password</a>
-            <a href="" >Forgot Password</a>
+            <a href="/sign" >Sign Up</a>
             <!-- <button type="submit">login</button> -->
          </div>
          <input type="submit" value="Login"/>
-         <body>
-            <div>
-                    <a href="/redirect_auth" > login with google</a>
-                    <a >login with linkedin</a> 
 
-            </div>
+         <div class="text-center">Or login with</div>
+         <div class="d-flex justify-content-between mt-3">
+             <a href="/redirect_auth" class="btn btn-outline-danger w-100 me-2">
+                 <img src="../static/images/google.jpg" alt="Google" class="img-fluid" style="width: 20px; height: 20px; margin-right: 8px;"/>
+                 Google
+             </a>
+             <a href="/linkedin_auth" class="btn btn-outline-primary w-100">
+                 <img src="../static/images/linkedin.png" alt="LinkedIn" class="img-fluid" style="width: 20px; height: 20px; margin-right: 8px;"/>
+                 LinkedIn
+             </a>
+         </div>
             </div>
     </div>
     </form> 
