@@ -262,6 +262,16 @@ def questions():
     # Render the template and pass the posts, current page, and total pages
     return render_template("questions.html", posts=posts, page=page, total_pages=total_pages) 
 
+
+@app.route("/myquestions")
+def myquestions():
+    username = session["username"]
+
+    user_id = query_db("SELECT user_id FROM Users WHERE username = ?", [username], one=True)["user_id"]
+
+    my_posts = query_db("SELECT * from Posts WHERE user_id = ?",args=[user_id])
+
+    return render_template("myquestions.html")
 @app.route("/search")
 def search():
     pass
