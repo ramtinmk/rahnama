@@ -197,12 +197,13 @@ def posts(post_id):
 
     upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ?",[post_id],one=True)["upvote_count"]
 
+    print(upvote_count)
 
 
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
     try:
-        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote = upvote_count)
+        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count)
     except Exception as e:
         print(f"Error rendering template: {e}")
         return "Failed to render template", 500
@@ -284,11 +285,11 @@ def myquestions():
 
     return render_template("myquestions.html",posts = my_posts)
 
-@app.route("/upvote")
+@app.route("/upvote",methods=["POST"])
 def upvote():
     data = request.json
 
-    username = data["username"]
+    username = session["username"]
     post_id = data["post_id"]
     vote_type = "upvote"
 
@@ -296,10 +297,13 @@ def upvote():
     db = get_db()
     cursor = db.cursor()
 
+    print(user_id,post_id,vote_type)
     try:
-        cursor.execute("INSERT INTO Votes (user_id,post_id,vote_type) VALUES (?,?,?)",(user_id,post_id,vote_type))
+        cursor.execute("INSERT INTO Votes (post_id,user_id,vote_type) VALUES (?,?,?);",(post_id,user_id,vote_type))
     except sqlite3.Error as e:
+        app.logger.error(e)
         flash(e)
+        return jsonify({"error":e})
     finally:
         db.close()
     

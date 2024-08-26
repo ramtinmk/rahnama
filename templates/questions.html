@@ -77,30 +77,13 @@
         <!-- Main Content -->
         <div class="container-fluid p-4" id="main-content">
             <h1>Here is questions and answers</h1>
-    
-    <form action="/add_post" method="post">
-        <input type="text" name="title" placeholder="title" required>
-        <textarea name="content" placeholder="your question" required></textarea>
-        <button type="submit">Add question</button>
-    </form>
 
     <div class="posts">
+        <ul>
         {% for post in posts %}
-            <div class="post">
-                <h2>{{ post.title }}</h2>
-                <p>{{ post.content }}</p>
-                <h3>کامنت‌ها:</h3>
-                <form action="/add_comment/{{ loop.index0 }}" method="post">
-                    <input type="text" name="comment" placeholder="answer" required>
-                    <button type="submit">Add answer</button>
-                </form>
-                <ul>
-                    {% for comment in post.comments %}
-                        <li>{{ comment }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
+            <li><a href="/posts/{{post.post_id}}">{{post.title}}</a></li>
         {% endfor %}
+        </ul>
     </div>
         </div>
     </div>
