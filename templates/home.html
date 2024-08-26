@@ -64,9 +64,11 @@
                 {% endif %}
                 <hr>
                 <ul class="list-unstyled components">
+                    {% if is_logged %}
                     <li>
-                        <a href="/questions">questions</a>
+                        <a href="/questions/ask">ask question</a>
                     </li>
+                    {% endif %}
                     <li>
                         <a href="#">About Us</a>
                     </li>
