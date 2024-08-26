@@ -1,3 +1,8 @@
+:root {
+    --bs-primary: #ff6347;
+    --bs-secondary: #6c757d;
+  }
+  
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 *{
   margin: 0;
@@ -8,7 +13,7 @@
 body {
     font-family: Arial, sans-serif;
     margin-top: 56px; /* Height of the navbar */
-    background-color: #7099b8;
+    background-color: #f9f9f6;
 }
 .navbar{
     background-color: #d93e5b;
@@ -23,7 +28,7 @@ body {
     overflow-y: auto;
     z-index: 100;
     transition: all 0.3s;
-    background-color: #204a73;
+    background-color: #7099b8;
     color: f9f9f6;
 }
 
@@ -31,7 +36,7 @@ body {
     margin-left: 250px;
     transition: all 0.3s;
     padding-top: 60px; /* Extra padding to avoid navbar overlap */
-    color: #f9f9f6;
+    color: #204a73;
 }
 
 @media (max-width: 992px) {
