@@ -220,7 +220,7 @@ def save_post():
             cursor.execute("INSERT INTO PostTags (post_id,tag_id) VALUES (?,?);",(post_id,tag_id))
     except sqlite3.Error as e:
         app.logger.error(e)
-        flash(e)
+        flash(e,category="error")
 
     redirecting_url = url_for("/posts",post_id=post_id)
 
@@ -252,6 +252,9 @@ def questions():
     # Render the template and pass the posts, current page, and total pages
     return render_template("questions.html", posts=posts, page=page, total_pages=total_pages) 
 
+@app.route("/search")
+def search():
+    pass
 
 @app.route("/logout")
 def logout():
