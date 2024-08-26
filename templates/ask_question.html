@@ -29,14 +29,22 @@
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        // Handle the response data here (e.g., display a success message)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the JSON response
     })
-    .catch((error) => {
+    .then(data => {
+        if (data.post_id) {
+            // Redirect to the new post URL
+            window.location.href = `/posts/${data.post_id}`;
+        } else {
+            console.error('Failed to create post:', data.error);
+        }
+    })
+    .catch(error => {
         console.error('Error:', error);
-        // Handle errors here
     });
 }
 
@@ -61,25 +69,13 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                {% if not is_logged %}
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">sign up</a>
-                    </li>
-                </ul>
-                {% else %}
+                
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
 
-                {% endif %}
             </div>
         </div>
     </nav>
@@ -112,7 +108,7 @@
         
     </div>
     <div class="container p-4 question" >
-        <form id="myForm" class="content">
+        <form id="myForm" class="content" action="/posts">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title"><br><br>
             
