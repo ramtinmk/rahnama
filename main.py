@@ -186,12 +186,23 @@ def posts(post_id):
     # Get the total number of posts to calculate total pages
     total_comments = query_db('SELECT COUNT(*) as count FROM Comments where post_id = ?',[post_id],one=True)["count"]
 
-    print(post,comments,total_comments)
+    user_posted_id =  query_db("select user_id from Posts where post_id = ?",args=[post_id],one=True)["user_id"]
+
+    username_posted = query_db("select username from Users where user_id = ?",args=[user_posted_id],one=True)
+
+    tag_ids = query_db("select tag_id from PostTags where post_id = ?",args=[post_id])
+    tags = []
+    for id in tag_ids:
+        tags.append(query_db("select tag_name from Tags where tag_id = ?",args=[id["tag_id"]])["tag_name"])
+
+    upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ?",[post_id],one=True)["upvote_count"]
+
+
 
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
     try:
-        return render_template("post.html",post=post)
+        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote = upvote_count)
     except Exception as e:
         print(f"Error rendering template: {e}")
         return "Failed to render template", 500
@@ -271,7 +282,31 @@ def myquestions():
 
     my_posts = query_db("SELECT * from Posts WHERE user_id = ?",args=[user_id])
 
-    return render_template("myquestions.html")
+    return render_template("myquestions.html",posts = my_posts)
+
+@app.route("/upvote")
+def upvote():
+    data = request.json
+
+    username = data["username"]
+    post_id = data["post_id"]
+    vote_type = "upvote"
+
+    user_id = query_db("select user_id from Users where username = ?",[username],one=True)["user_id"]
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("INSERT INTO Votes (user_id,post_id,vote_type) VALUES (?,?,?)",(user_id,post_id,vote_type))
+    except sqlite3.Error as e:
+        flash(e)
+    finally:
+        db.close()
+    
+
+        
+
+
 @app.route("/search")
 def search():
     pass
