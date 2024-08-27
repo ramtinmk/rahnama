@@ -1,0 +1,129 @@
+:root {
+    --bs-primary: #64bedb; /* Primary Blue */
+    --bs-secondary: #6c757d; /* Gray */
+  }
+  
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin-top: 56px; /* Height of the navbar */
+    background-color: #f9f9f6; /* Light background */
+  }
+  
+  .navbar {
+    background-color: #d93e5b; /* Red */
+  }
+  
+  #sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    height: 100%;
+    position: fixed;
+    top: 56px; /* Adjust this value to match navbar height */
+    left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: all 0.3s;
+    background-color: #64bedb; /* Lighter blue */
+    color: #f9f9f6; /* Light background */
+  }
+  
+  .sidebar {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  
+  #main-content {
+    margin-left: 250px;
+    transition: all 0.3s;
+    padding-top: 60px; /* Extra padding to avoid navbar overlap */
+    color: #204a73; /* Dark blue */
+  }
+  .title{
+    color: #7099b8;
+  }
+  
+  @media (max-width: 992px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+  
+    #sidebar.active {
+        margin-left: 0;
+    }
+  
+    #main-content {
+        margin-left: 0;
+    }
+  }
+  
+  .logo {
+    display: flex;
+    width: 50px;
+    height: 50px;
+  }
+
+  .hit-voting {
+    cursor: pointer;
+  }
+  
+  .hit-voting:hover {
+    color: blue;
+  }
+  
+  .comments {
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer;
+  }
+  
+   .dot {
+    height: 7px;
+    width: 7px;
+    margin-top: 3px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .bdge {
+    height: 21px;
+    background-color: orange;
+    color: #fff;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 3px;
+  }
+  
+  /* Customize button colors and styles */
+  .btn-danger {
+    background-color: #d93e5b; /* Red */
+    border-color: #d93e5b;
+  }
+  
+  .btn-primary {
+    background-color: #64bedb; /* Blue */
+    border-color: #64bedb;
+  }
+  
+  .btn-outline-warning {
+    color: #d93e5b;
+    border-color: #d93e5b;
+  }
+  
+  .btn-outline-warning:hover {
+    background-color: #d93e5b;
+    color: #fff;
+  }
+  ask{
+
+    margin-left :150px;
+  }  
