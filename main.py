@@ -314,6 +314,28 @@ def upvote():
 
 @app.route("/search")
 def search():
+    
+    search_parameter = request.args["search_word"]
+
+    search_result = query_db(f"select * from Posts where body like '%{search_parameter}%' or title like '%{search_parameter}%'",one=False)
+
+
+    return render_template("search_result.html",posts=search_result)
+
+
+@app.route("/yourprofile")
+def yourprofile():
+    is_logged = False
+
+    if "username" in session:
+        username = session["username"]
+        email = query_db("select email from Users where username = ?",[username],one=True)["email"]
+        is_logged = True
+
+    return render_template("myprofile.html",username=username,email=email,is_logged=is_logged)
+
+@app.route("/profile/update")
+def profile_update():
     pass
 
 @app.route("/logout")

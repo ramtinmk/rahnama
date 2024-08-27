@@ -66,9 +66,15 @@
                         <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
                 </ul>
+<<<<<<< HEAD
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-light" type="submit">Search</button>
+=======
+                <form class="d-flex" action="/search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_word">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+>>>>>>> 1052433a05583cb8f5da2ad9c9c6430da12208ac
                 </form>
                 {% if not is_logged %}
                 <ul class="navbar-nav ms-auto">
