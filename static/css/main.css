@@ -1,64 +1,96 @@
 :root {
-    --bs-primary: #ff6347;
-    --bs-secondary: #6c757d;
-  }
-  
+  --bs-primary: #64bedb; /* Primary Blue */
+  --bs-secondary: #6c757d; /* Gray */
+}
+
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'poppins' , sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
+
 body {
-    font-family: Arial, sans-serif;
-    margin-top: 56px; /* Height of the navbar */
-    background-color: #f9f9f6;
+  font-family: Arial, sans-serif;
+  margin-top: 56px; /* Height of the navbar */
+  background-color: #f9f9f6; /* Light background */
 }
-.navbar{
-    background-color: #d93e5b;
+
+.navbar {
+  background-color: #d93e5b; /* Red */
 }
+
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    height: 100%;
-    position: fixed;
-    top: 56px; /* Adjust this value to match navbar height */
-    left: 0;
-    overflow-y: auto;
-    z-index: 100;
-    transition: all 0.3s;
-    background-color: #7099b8;
-    color: f9f9f6;
+  min-width: 250px;
+  max-width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 56px; /* Adjust this value to match navbar height */
+  left: 0;
+  overflow-y: auto;
+  z-index: 100;
+  transition: all 0.3s;
+  background-color: #64bedb; /* Lighter blue */
+  color: #f9f9f6; /* Light background */
+}
+
+.sidebar {
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
 #main-content {
-    margin-left: 250px;
-    transition: all 0.3s;
-    padding-top: 60px; /* Extra padding to avoid navbar overlap */
-    color: #204a73;
+  margin-left: 250px;
+  transition: all 0.3s;
+  padding-top: 60px; /* Extra padding to avoid navbar overlap */
+  color: #204a73; /* Dark blue */
+}
+.title{
+  color: #7099b8;
 }
 
 @media (max-width: 992px) {
-    #sidebar {
-        margin-left: -250px;
-    }
+  #sidebar {
+      margin-left: -250px;
+  }
 
-    #sidebar.active {
-        margin-left: 0;
-    }
+  #sidebar.active {
+      margin-left: 0;
+  }
 
-    #main-content {
-        margin-left: 0;
-    }
+  #main-content {
+      margin-left: 0;
+  }
 }
-.logo{
-    display: flex;
-    width: 50px;
-    height: 50px;
+
+.logo {
+  display: flex;
+  width: 50px;
+  height: 50px;
 }
-.question{
-    margin-left: 250px;
+
+.hit-voting {
+  cursor: pointer;
+}
+
+.hit-voting:hover {
+  color: blue;
+}
+
+.comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
+
+ .dot {
+  height: 7px;
+  width: 7px;
+  margin-top: 3px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .bdge {
@@ -71,25 +103,90 @@ body {
   line-height: 3px;
 }
 
-.comments {
-  text-decoration: underline;
-  text-underline-position: under;
-  cursor: pointer;
+/* Customize button colors and styles */
+.btn-danger {
+  background-color: #d93e5b; /* Red */
+  border-color: #d93e5b;
 }
 
-.dot {
-  height: 7px;
-  width: 7px;
-  margin-top: 3px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
+.btn-primary {
+  background-color: #64bedb; /* Blue */
+  border-color: #64bedb;
 }
 
-.hit-voting:hover {
-  color: blue;
+.btn-outline-warning {
+  color: #d93e5b;
+  border-color: #d93e5b;
 }
 
-.hit-voting {
-  cursor: pointer;
+.btn-outline-warning:hover {
+  background-color: #d93e5b;
+  color: #fff;
+}
+
+
+.box {
+  position: relative;
+  width: 250px; /* Set width slightly larger than the image */
+  height: 250px; /* Set height slightly larger than the image */
+  margin: auto; /* Center the box */
+  display: flex;
+  align-items: center; /* Center image vertically */
+  justify-content: center; /* Center image horizontally */
+}
+
+.box img {
+  position: relative; /* Allows proper stacking */
+  z-index: 2; /* Ensure image is on top of the animations */
+  width: 200px; /* Image width */
+  height: 200px; /* Image height */
+  border-radius: 10px; /* Rounded corners for the image */
+  padding: 0;
+  border: transparent;
+}
+
+/* Border Animation */
+.border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px; /* width of the box */
+  height: 250px; /* height of the box */
+  border: 10px solid transparent; /* Transparent border as base */
+  border-radius: 10px; /* Match the inner box rounding */
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+.border::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Outer border */
+  left: -10px; /* Outer border */
+  width: 100%; /* Match the width */
+  height: 100%; /* Match the height */
+  border: 10px solid #d93e5b; /* Outer border color */
+  border-radius: 10px; /* Rounded corners */
+  animation: animate-border 6s linear infinite;
+}
+
+.border::after {
+  content: '';
+  position: absolute;
+  top: -5px; /* Inner border */
+  left: -5px; /* Inner border */
+  width: 100%; /* Match the width */
+  height: 100%; /* Match the height */
+  border: 10px solid #64bedb; /* Inner border color */
+  border-radius: 10px; /* Rounded corners */
+  animation: animate-border 6s linear infinite;
+  animation-delay: -3s; /* Delay for inner border */
+}
+
+@keyframes animate-border {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
 }
