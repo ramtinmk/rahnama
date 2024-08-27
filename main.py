@@ -314,7 +314,13 @@ def upvote():
 
 @app.route("/search")
 def search():
-    pass
+    
+    search_parameter = request.args["search_word"]
+
+    search_result = query_db(f"select * from Posts where body like '%{search_parameter}%' or title like '%{search_parameter}%'",one=False)
+
+
+    return render_template("search_result.html",posts=search_result)
 
 @app.route("/logout")
 def logout():
