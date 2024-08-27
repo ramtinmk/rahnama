@@ -14,12 +14,14 @@
     const body = document.getElementById('body').value;
     const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim());
 
+
     // Create a JSON object
     const data = {
         title: title,
         body: body,
         tags: tags
     };
+
 
     // Send data to the Flask backend using fetch API
     fetch('/save_post', {
@@ -48,12 +50,11 @@
     });
 }
 
+
     </script>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #d93e5b;">
         <div class="container-fluid">
             <img src="../static/images/fc93453056354554a430b7c9694fada9-free.png" alt="logo" class="logo rounded-circle">
@@ -66,15 +67,9 @@
                         <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
                 </ul>
-<<<<<<< HEAD
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-=======
                 <form class="d-flex" action="/search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_word">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
->>>>>>> 1052433a05583cb8f5da2ad9c9c6430da12208ac
+                    <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
                 {% if not is_logged %}
                 <ul class="navbar-nav ms-auto">
@@ -123,25 +118,21 @@
                 </li>
             </div>
         </nav>
+    <div class="container p-4 question">
+        <h2 class="title">Ask Your Questions Here </h2>
+    <form id="myForm" class="content" action="/posts">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
 
-        <!-- Main Content -->
-        
-    </div>
-    <div class="container p-4 question ">
-        <form id="myForm" class="content" action="/posts">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title"><br><br>
-            
-            <label for="body">Body:</label>
-            <textarea id="body" name="body"></textarea><br><br>
-            
-            <label for="tags">Tags (comma separated):</label>
-            <input type="text" id="tags" name="tags"><br><br>
-            
-            <button type="button" onclick="submitForm()">Submit</button>
-        </form>
-        
-    </div>
+        <label for="body">Body:</label>
+        <textarea id="body" name="body" required></textarea><br>
+
+        <label for="tags">Tags (comma separated):</label>
+        <input type="text" id="tags" name="tags"><br>
+
+        <button type="button" onclick="submitForm()" class="btn btn-danger">Submit</button>
+    </form>
+</div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>

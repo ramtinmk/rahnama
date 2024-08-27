@@ -1,99 +1,126 @@
-:root {
-    --bs-primary: #64bedb; /* Primary Blue */
-    --bs-secondary: #6c757d; /* Gray */
-  }
-  
-  @import url('https://fonts.googleapis.com/css?family=Poppins');
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    margin-top: 56px; /* Height of the navbar */
-    background-color: #f9f9f6; /* Light background */
-  }
-  
-  .navbar {
-    background-color: #d93e5b; /* Red */
-  }
-  
-  #sidebar {
-    min-width: 200px;
-    max-width: 200px;
-    height: 100%;
-    position: fixed;
-    top: 56px; /* Adjust this value to match navbar height */
-    left: 0;
-    overflow-y: auto;
-    z-index: 100;
-    transition: all 0.3s;
-    background-color: #64bedb; /* Lighter blue */
-    color: #f9f9f6; /* Light background */
-  }
-  
-  .sidebar {
-    margin-left: 20px;
-    margin-bottom: 10px;
-  }
-  
-  #main-content {
-    margin-left: 250px;
-    transition: all 0.3s;
-    padding-top: 60px; /* Extra padding to avoid navbar overlap */
-    color: #204a73; /* Dark blue */
-  }
-  .title{
-    color: #7099b8;
-  }
-  
-  @media (max-width: 992px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-  
-    #sidebar.active {
-        margin-left: 0;
-    }
-  
-    #main-content {
-        margin-left: 0;
-    }
-  }
-  
-  .logo {
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin-top: 56px; /* Height of the navbar */
+  background-color: #f9f9f6; /* Light background */
+}
+
+.navbar {
+  background-color: #d93e5b; /* Red */
+}
+.logo {
     display: flex;
     width: 50px;
     height: 50px;
   }
+#sidebar {
+  min-width: 200px;
+  max-width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 56px; /* Adjust this value to match navbar height */
+  left: 0;
+  overflow-y: auto;
+  z-index: 100;
+  transition: all 0.3s;
+  background-color: #64bedb; /* Lighter blue */
+  color: #f9f9f6; /* Light background */
+}
 
-  .hit-voting {
+.sidebar {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.container {
+    margin-left: 220px; /* Adjust for sidebar width */
+}
+
+/* Main Content */
+.question {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+label {
+    font-weight: bold;
+}
+
+button[type="button"] {
+    background-color: #d93e5b; /* Red */
+    color: white;
+}
+
+button[type="button"]:hover {
+    background-color: #b6364e; /* Darker red on hover */
+}
+
+/* Form input styles */
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: #64bedb; /* Blue focus border */
+    outline: none;
+}
+
+/* Adjusting responsive behavior for sidebar */
+@media (max-width: 992px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    .container {
+        margin-left: 0; /* No margin for smaller screens */
+    }
+    
+    #main-content {
+        margin-left: 0; /* No margin for smaller screens */
+    }
+}
+
+/* Additional Elements */
+.hit-voting {
     cursor: pointer;
-  }
-  
-  .hit-voting:hover {
+}
+
+.hit-voting:hover {
     color: blue;
-  }
-  
-  .comments {
+}
+
+.comments {
     text-decoration: underline;
-    text-underline-position: under;
     cursor: pointer;
-  }
-  
-   .dot {
+}
+
+.dot {
     height: 7px;
     width: 7px;
-    margin-top: 3px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-  }
-  
-  .bdge {
+}
+
+.bdge {
     height: 21px;
     background-color: orange;
     color: #fff;
@@ -101,29 +128,11 @@
     padding: 8px;
     border-radius: 4px;
     line-height: 3px;
-  }
+}
+ .title{
+    color:#0D47A1;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
   
-  /* Customize button colors and styles */
-  .btn-danger {
-    background-color: #d93e5b; /* Red */
-    border-color: #d93e5b;
   }
-  
-  .btn-primary {
-    background-color: #64bedb; /* Blue */
-    border-color: #64bedb;
-  }
-  
-  .btn-outline-warning {
-    color: #d93e5b;
-    border-color: #d93e5b;
-  }
-  
-  .btn-outline-warning:hover {
-    background-color: #d93e5b;
-    color: #fff;
-  }
-  ask{
-
-    margin-left :150px;
-  }  
