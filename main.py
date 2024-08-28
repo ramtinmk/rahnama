@@ -8,7 +8,7 @@ from database_utils import *
 from flask import g
 import re
 from flask_oauthlib.client import OAuth
-from datetime import datetime
+from datetime import datetime,timedelta
 
 app = Flask(__name__)
 
@@ -54,7 +54,7 @@ def is_valid_email(email: str) -> bool:
 
 def time_ago(datetime_str):
     # Convert the datetime string to a datetime object
-    past_time = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+    past_time = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S') + timedelta(hours=3, minutes=30)
     
     # Get the current time
     now = datetime.now()
@@ -230,6 +230,8 @@ def posts(post_id):
     upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ? and vote_type = ?",[post_id,"upvote"],one=True)["upvote_count"]
 
 
+    post["time_ago"] = time_ago(post["created_at"])
+
 
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
@@ -295,13 +297,15 @@ def questions():
     # print(per_page,offset)
     db = get_db()
     cursor = db.cursor()
-    posts = cursor.execute('SELECT * FROM Posts LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
+    posts = cursor.execute('SELECT * FROM Posts ORDER BY created_at DESC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
 
     # Get the total number of posts to calculate total pages
     total_posts = db.execute('SELECT COUNT(*) as count FROM Posts').fetchone()['count']
     total_pages = (total_posts + per_page - 1) // per_page  # Total pages
 
-    print(posts)
+    
+    for post in posts:
+        post["time_ago"] = time_ago(post["created_at"])
     # Render the template and pass the posts, current page, and total pages
     return render_template("questions.html", posts=posts, page=page, total_pages=total_pages) 
 

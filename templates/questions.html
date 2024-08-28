@@ -82,7 +82,7 @@
             <h1 class="title">Here is questions and answers</h1>
         <ul class="list-group">
         {% for post in posts %}
-            <a class="list-group-item list-group-item-action question" href="/posts/{{post.post_id}}">{{post.title}}</a>
+            <a class="list-group-item list-group-item-action question" href="/posts/{{post.post_id}}">{{post.title}} ({{post.time_ago}})</a>
         {% endfor %}
         </ul>
     </div>
