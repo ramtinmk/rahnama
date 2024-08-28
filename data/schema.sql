@@ -58,7 +58,7 @@ CREATE TABLE PostTags (
     FOREIGN KEY (tag_id) REFERENCES Tags(tag_id) ON DELETE CASCADE
 );
 
-CREATE TABLE new_notifications(
+CREATE TABLE notifications(
     notification_id INTEGER PRIMARY KEY AUTOINCREMENT,
     from_username TEXT NOT NULL,
     to_username TEXT NOT NULL,

@@ -212,9 +212,12 @@ def posts(post_id):
 
     post = query_db("select * from Posts where post_id = ?",[post_id],one=True)
     
-    comments = query_db("select * from Comments where post_id = ? limit ? offset ?",[post_id,per_page,offset])
+    comments = query_db("select * from Comments where post_id = ? ORDER BY created_at DESC limit ? offset ?",[post_id,per_page,offset])
 
-    sorted_comments = sorted(comments, key=lambda x: datetime.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+    for comment in comments:
+        commentor_username = query_db("select username from Users where user_id = ?",[comment['user_id']],one=True)["username"]
+        comment["username"] = commentor_username
+        comment["time_ago"] = time_ago(comment['created_at'])
     # Get the total number of posts to calculate total pages
     total_comments = query_db('SELECT COUNT(*) as count FROM Comments where post_id = ?',[post_id],one=True)["count"]
 
@@ -236,7 +239,7 @@ def posts(post_id):
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
     try:
-        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count,comments=sorted_comments)
+        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count,comments=comments,is_logged = check_is_logged())
     except Exception as e:
         print(f"Error rendering template: {e}")
         return "Failed to render template", 500
@@ -465,6 +468,37 @@ def profile_update():
 
     return redirect("/yourprofile")
 
+@app.route("/comment-post",methods=["POST"])
+def comment_post():
+    is_logged = check_is_logged()
+    print(is_logged)
+    if not is_logged:
+        return redirect("/login")
+    db = get_db()
+    cursor = db.cursor()
+    comment_data = request.json
+    username = session["username"]
+    user_id = query_db("select user_id from Users where username = ?",[username],one=True)["user_id"]
+    comment_body = comment_data["body"]
+    post_id = comment_data["post_id"]
+    try:
+        print(post_id,user_id,comment_body)
+        cursor.execute("INSERT INTO Comments  (post_id,user_id,body) VALUES (?,?,?);",(post_id,user_id,comment_body))
+        db.commit()
+    except sqlite3.Error as e:
+        print(e)
+    finally:
+        db.close()
+
+    return redirect(url_for("posts",post_id=post_id))
+@app.route("/delete-comment/<comment_id>")
+def delete_comment(comment_id):
+
+    post_id = query_db("select post_id from Comments where comment_id = ?",[comment_id],one=True)["post_id"]
+    delete = query_db("DELETE FROM Comments WHERE comment_id = ? ",[comment_id])
+    print(delete)
+
+    return redirect(url_for("posts",post_id=post_id))
 
 @app.route("/logout")
 def logout():

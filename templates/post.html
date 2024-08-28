@@ -82,7 +82,29 @@
         
         window.location.href = `/posts/${data.post_id}`;
     };
-    window.location.href = `/posts/${data.post_id}`;
+    function addcomment(){
+
+        const comment_body = document.getElementById("comment").value;
+        const post_id = {{post.post_id}};
+
+        data = {"body":comment_body,
+                "post_id": post_id
+        }
+
+        fetch('/comment-post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the JSON response
+        })
+    };
     </script>
 </head>
 <body>
@@ -180,7 +202,8 @@
                             <div id="answers" class="mt-2">
                                 {% for comment in comments %}
                                 <div class="alert alert-secondary mb-1">
-                                    <strong>User1:</strong> This is the first answer to the question.
+                                    <strong>{{comment.username}}:</strong>    {{comment.body}}  <br>
+                                    ({{comment.time_ago}})  {% if comment.username == session["username"] %} <a href="/delete-comment/{{comment.comment_id}}">delete</a> {% endif%}
                                 </div>
                                 {% endfor %}
                             </div>
@@ -191,7 +214,7 @@
                             <div class="form-group mb-3">
                                 <textarea class="form-control" id="comment" rows="3" placeholder="Write your answer or comment here..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button type="submit" class="btn btn-danger" , onclick="addcomment()">Submit</button>
                         </form>
                     </div>
                 </div>
