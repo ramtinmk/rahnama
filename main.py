@@ -239,7 +239,13 @@ def posts(post_id):
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
     try:
-        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count,comments=comments,is_logged = check_is_logged())
+        sql_query =  """UPDATE Posts
+         SET views = views + 1
+         WHERE post_id = ?
+         """
+        updating = query_db(sql_query,[post_id])
+        views = query_db("select views from Posts where post_id = ? ",[post_id],one=True)["views"]
+        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count,comments=comments,is_logged = check_is_logged(),views=views)
     except Exception as e:
         print(f"Error rendering template: {e}")
         return "Failed to render template", 500

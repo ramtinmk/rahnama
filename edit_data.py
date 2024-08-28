@@ -33,7 +33,7 @@ try:
     # cursor.execute("DROP TABLE notifications")
 
     # Step 4: Rename the new table to the original table name
-    cursor.execute("ALTER TABLE new_notifications RENAME TO notifications")
+    cursor.execute("ALTER TABLE Posts ADD COLUMN views DEFAULT 0;")
 except sqlite3.OperationalError as e:
     print(f"An error occurred: {e}")
 
