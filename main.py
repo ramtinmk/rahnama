@@ -85,6 +85,8 @@ def time_ago(datetime_str):
         return f"{int(years)} years ago"
 
 
+def check_is_logged():
+    return "username" in session
 app.secret_key = secrets.token_hex(16)
 
 
@@ -396,6 +398,7 @@ def downvote():
 @app.route("/notifications")
 def notifications():
     username = session["username"]
+    is_logged = check_is_logged()
 
     notifs = query_db("select * from notifications where to_username = ?",[username])
     notifs = sorted(notifs, key=lambda x: datetime.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
@@ -403,7 +406,7 @@ def notifications():
     for nott in notifs:
         nott["time_ago"] = time_ago(nott["created_at"])
     print(notifs)
-    return render_template("notifications.html",notifs = notifs)
+    return render_template("notifications.html",notifs = notifs,is_logged=is_logged)
 
 
 @app.route("/search")
