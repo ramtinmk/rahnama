@@ -57,3 +57,15 @@ CREATE TABLE PostTags (
     FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE,
     FOREIGN KEY (tag_id) REFERENCES Tags(tag_id) ON DELETE CASCADE
 );
+
+CREATE TABLE new_notifications(
+    notification_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    from_username TEXT NOT NULL,
+    to_username TEXT NOT NULL,
+    kind TEXT CHECK(kind IN ('view', 'upvote','comment')) NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    post_id INTEGER NOT NULL,
+    FOREIGN KEY (from_username) REFERENCES Users(username) ON DELETE CASCADE,
+    FOREIGN KEY (to_username) REFERENCES Users(username) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE
+);

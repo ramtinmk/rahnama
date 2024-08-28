@@ -8,6 +8,7 @@ from database_utils import *
 from flask import g
 import re
 from flask_oauthlib.client import OAuth
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -195,7 +196,7 @@ def posts(post_id):
     for id in tag_ids:
         tags.append(query_db("select tag_name from Tags where tag_id = ?",args=[id["tag_id"]],one=True)["tag_name"])
 
-    upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ?",[post_id],one=True)["upvote_count"]
+    upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ? and vote_type = ?",[post_id,"upvote"],one=True)["upvote_count"]
 
     print(upvote_count)
 
@@ -294,11 +295,61 @@ def upvote():
     vote_type = "upvote"
 
     user_id = query_db("select user_id from Users where username = ?",[username],one=True)["user_id"]
+    to_username = data["username"]
+
     db = get_db()
     cursor = db.cursor()
 
     print(user_id,post_id,vote_type)
+
+    has_downvoted = query_db("select vote_type from Votes where user_id = ? and vote_type = ?",[user_id,"downvote"]) 
+    print(has_downvoted)
     try:
+        if has_downvoted ==[]:
+            pass
+        else:
+            print('deleting')
+            cursor.execute("DELETE FROM Votes WHERE post_id = ? and vote_type = ?",[post_id,"downvote"])
+            db.commit()
+
+        cursor.execute("INSERT INTO Votes (post_id,user_id,vote_type) VALUES (?,?,?);",(post_id,user_id,vote_type))
+        db.commit()
+
+        cursor.execute("INSERT INTO notifications (from_username,to_username,kind) VALUES (?,?,?);",(username,to_username,"upvote"))
+        db.commit()
+        
+    except sqlite3.Error as e:
+        print(e)
+        flash(e)
+        return jsonify({"error":e})
+    finally:
+        db.close()
+    
+    return jsonify({"status":"ok"})
+
+@app.route("/downvote",methods=["POST"])
+def downvote():
+    data = request.json
+
+    username = session["username"]
+    post_id = data["post_id"]
+    vote_type = "downvote"
+
+    user_id = query_db("select user_id from Users where username = ?",[username],one=True)["user_id"]
+    db = get_db()
+    cursor = db.cursor()
+
+    print(user_id,post_id,vote_type)
+
+    has_upvoted = query_db("select vote_type from Votes where user_id = ? and vote_type = ?",[user_id,"upvote"]) 
+    print(has_upvoted)
+    try:
+        if has_upvoted==[]:
+            pass
+        else:
+            cursor.execute("DELETE FROM Votes WHERE post_id = ? and vote_type = ?",[post_id,"upvote"])
+            db.commit()
+            
         cursor.execute("INSERT INTO Votes (post_id,user_id,vote_type) VALUES (?,?,?);",(post_id,user_id,vote_type))
         db.commit()
         
@@ -309,9 +360,18 @@ def upvote():
     finally:
         db.close()
     
+    
+        
     return jsonify({"status":"ok"})
 
-        
+
+@app.route("/notifications")
+def notifications():
+    username = session["username"]
+
+    notifs = query_db("select * from notifications where to_username = ?",[username])
+    notifs = sorted(notifs, key=lambda x: datetime.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+    return render_template("notifications.html",notifs = notifs)
 
 
 @app.route("/search")

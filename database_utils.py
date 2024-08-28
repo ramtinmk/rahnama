@@ -13,7 +13,10 @@ def get_db():
 
 
 def query_db(query, args=(), one=False):
-    cur = get_db().execute(query, args)
+    db = get_db()
+    cur = db.execute(query, args)
+    db.commit()
+    
     rv = cur.fetchall()
     cur.close()
     return (rv[0] if rv else None) if one else rv

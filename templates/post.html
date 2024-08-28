@@ -43,8 +43,46 @@
     .catch(error => {
         console.error('Error:', error);
     });
+    
     window.location.href = `/posts/${data.post_id}`;
 };
+    function downvote(){
+            const post_id = {{post.post_id}};
+            const username = "{{username}}";
+            console.log(username)
+            const data = {
+                username:username,
+                post_id:post_id,
+        };
+        fetch('/downvote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+            if (data.status='ok') { 
+                // You can manipulate the DOM here to update the upvote count
+            const upvoteCountElement = document.querySelector('span'); // Locate the element
+            upvoteCountElement.textContent = parseInt(upvoteCountElement.textContent) + 1;
+            } else {
+                console.error('Failed to create post:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        
+        window.location.href = `/posts/${data.post_id}`;
+    };
+    window.location.href = `/posts/${data.post_id}`;
     </script>
 </head>
 <body>
@@ -121,7 +159,7 @@
                             <div class="votings ml-1">
                                 <i class="fa fa-sort-up fa-2x hit-voting" onclick="upvote()"></i>
                                 <span id="upvote-count">{{upvote_count}}</span>
-                                <i class="fa fa-sort-down fa-2x hit-voting" onclick="submitForm()"></i>
+                                <i class="fa fa-sort-down fa-2x hit-voting" onclick="downvote()"></i>
                             </div>
                             <div class="ml-3 flex-grow-1">
                                 <div class="post-title">
