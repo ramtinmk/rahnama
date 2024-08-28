@@ -300,6 +300,8 @@ def upvote():
     print(user_id,post_id,vote_type)
     try:
         cursor.execute("INSERT INTO Votes (post_id,user_id,vote_type) VALUES (?,?,?);",(post_id,user_id,vote_type))
+        db.commit()
+        
     except sqlite3.Error as e:
         app.logger.error(e)
         flash(e)
@@ -334,9 +336,36 @@ def yourprofile():
 
     return render_template("myprofile.html",username=username,email=email,is_logged=is_logged)
 
-@app.route("/profile/update")
+@app.route("/profile/update",methods=['POST'])
 def profile_update():
-    pass
+    username = request.form["username"]
+    email = request.form["email"]
+    db = get_db()
+    cursor = db.cursor()
+
+    old_username = session["username"]
+    print(session["username"],username)
+    if session["username"]!= username:
+        try:
+           cursor.execute(f"UPDATE Users SET username=? WHERE username=? ;",(username,old_username))
+           db.commit()
+
+        except sqlite3.Error as e:
+            print(e)
+        session["username"] = username
+
+    old_email = query_db(f"select email from Users where username = '{old_username}'  ;",one=True)
+
+    print(old_email,email)
+    if old_email!=email:
+        try:
+            cursor.execute("UPDATE Users SET email =? WHERE username =?;", (email, old_username))
+            db.commit()
+        except sqlite3.Error as e:
+            print(e)
+
+    return redirect("/yourprofile")
+
 
 @app.route("/logout")
 def logout():
