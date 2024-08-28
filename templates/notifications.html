@@ -83,10 +83,10 @@
         <ul class="list-group">
         {% for nott in notifs %}
             {% if nott["kind"] == "upvote" %}
-            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} upvoted your <a href="/posts/{{ nott["post_id"] }}" >post</a></li>
+            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} upvoted your <a href="/posts/{{ nott["post_id"] }}" >post</a>  ({{nott["time_ago"]}})</li>
             {% endif %}
             {% if nott["kind"] == "view" %}
-            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} viewed your <a href="/posts/{{ nott["post_id"] }}" >post</a></li>
+            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} viewed your <a href="/posts/{{ nott["post_id"] }}" >post</a>  ({{nott["time_ago"]}})</li>
             {% endif %}            
         {% endfor %}
         </ul>

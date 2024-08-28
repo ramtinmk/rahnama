@@ -178,12 +178,11 @@
                             <hr>
                             <h5>Comments</h5>
                             <div id="answers" class="mt-2">
+                                {% for comment in comments %}
                                 <div class="alert alert-secondary mb-1">
                                     <strong>User1:</strong> This is the first answer to the question.
                                 </div>
-                                <div class="alert alert-secondary mb-1">
-                                    <strong>User2:</strong> Here is another response to the same question.
-                                </div>
+                                {% endif %}
                             </div>
                         </div>
 

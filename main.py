@@ -52,6 +52,37 @@ def is_valid_email(email: str) -> bool:
     # Returns True if the string matches the email pattern, else False
     return re.match(email_regex, email) is not None
 
+def time_ago(datetime_str):
+    # Convert the datetime string to a datetime object
+    past_time = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+    
+    # Get the current time
+    now = datetime.now()
+    
+    # Calculate the difference
+    time_difference = now - past_time
+    
+    # Calculate the seconds difference
+    seconds = time_difference.total_seconds()
+    
+    # Convert seconds to minutes, hours, days, etc.
+    if seconds < 60:
+        return f"{int(seconds)} seconds ago"
+    elif seconds < 3600:
+        minutes = seconds // 60
+        return f"{int(minutes)} minutes ago"
+    elif seconds < 86400:
+        hours = seconds // 3600
+        return f"{int(hours)} hours ago"
+    elif seconds < 2592000:
+        days = seconds // 86400
+        return f"{int(days)} days ago"
+    elif seconds < 31536000:
+        months = seconds // 2592000
+        return f"{int(months)} months ago"
+    else:
+        years = seconds // 31536000
+        return f"{int(years)} years ago"
 
 
 app.secret_key = secrets.token_hex(16)
@@ -169,10 +200,6 @@ def signup_post():
         return redirect("/signup")
 
 
-
-
-    
-
 @app.route("/posts/<post_id>")
 def posts(post_id):
     
@@ -184,6 +211,8 @@ def posts(post_id):
     post = query_db("select * from Posts where post_id = ?",[post_id],one=True)
     
     comments = query_db("select * from Comments where post_id = ? limit ? offset ?",[post_id,per_page,offset])
+
+    sorted_comments = sorted(comments, key=lambda x: datetime.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
     # Get the total number of posts to calculate total pages
     total_comments = query_db('SELECT COUNT(*) as count FROM Comments where post_id = ?',[post_id],one=True)["count"]
 
@@ -198,13 +227,12 @@ def posts(post_id):
 
     upvote_count = query_db("select COUNT(*) as upvote_count from Votes where post_id = ? and vote_type = ?",[post_id,"upvote"],one=True)["upvote_count"]
 
-    print(upvote_count)
 
 
     total_pages = (total_comments+ per_page - 1) // per_page  # Total pages
 
     try:
-        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count)
+        return render_template("post.html",post=post,username=username_posted,tags=tags,upvote_count=upvote_count,comments=sorted_comments)
     except Exception as e:
         print(f"Error rendering template: {e}")
         return "Failed to render template", 500
@@ -371,6 +399,10 @@ def notifications():
 
     notifs = query_db("select * from notifications where to_username = ?",[username])
     notifs = sorted(notifs, key=lambda x: datetime.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+
+    for nott in notifs:
+        nott["time_ago"] = time_ago(nott["created_at"])
+    print(notifs)
     return render_template("notifications.html",notifs = notifs)
 
 
