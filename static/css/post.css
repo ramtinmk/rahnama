@@ -1,0 +1,88 @@
+:root {
+    --bs-primary: #64bedb; /* Primary Blue */
+    --bs-secondary: #6c757d; /* Gray */
+  }
+  
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin-top: 56px; /* Height of the navbar */
+    background-color: #f9f9f6; /* Light background */
+  }
+  
+  .navbar {
+    background-color: #d93e5b; /* Red */
+  }
+  
+  #sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    height: 100%;
+    position: fixed;
+    top: 56px; /* Adjust this value to match navbar height */
+    left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: all 0.3s;
+    background-color: #64bedb; /* Lighter blue */
+    color: #f9f9f6; /* Light background */
+  }
+  .logo {
+    display: flex;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .sidebar {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+
+.comment-top {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.post-title {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/*
+.btn-outline-light {
+    color: #64bedb;
+    border-color: #64bedb;
+}
+
+.btn-outline-light:hover {
+    background-color: #64bedb;
+    color: #fff;
+}
+    */
+
+.votings span {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 1.2rem;
+    color: #204a73;
+}
+
+.fa-sort-up, .fa-sort-down {
+    cursor: pointer;
+    color: #d93e5b;
+}
+
+#answers {
+    margin-top: 20px;
+}
