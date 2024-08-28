@@ -345,7 +345,7 @@ def upvote():
 
     print(user_id,post_id,vote_type)
 
-    has_downvoted = query_db("select vote_type from Votes where user_id = ? and vote_type = ?",[user_id,"downvote"]) 
+    has_downvoted = query_db("select vote_type from Votes where user_id = ? and vote_type = ? and post_id = ?",[user_id,"downvote",post_id]) 
     print(has_downvoted)
     try:
         if has_downvoted ==[]:
@@ -358,7 +358,7 @@ def upvote():
         cursor.execute("INSERT INTO Votes (post_id,user_id,vote_type) VALUES (?,?,?);",(post_id,user_id,vote_type))
         db.commit()
 
-        cursor.execute("INSERT INTO notifications (from_username,to_username,kind) VALUES (?,?,?);",(username,to_username,"upvote"))
+        cursor.execute("INSERT INTO notifications (from_username,to_username,kind,post_id) VALUES (?,?,?,?);",(username,to_username,"upvote",post_id))
         db.commit()
         
     except sqlite3.Error as e:
@@ -384,13 +384,13 @@ def downvote():
 
     print(user_id,post_id,vote_type)
 
-    has_upvoted = query_db("select vote_type from Votes where user_id = ? and vote_type = ?",[user_id,"upvote"]) 
+    has_upvoted = query_db("select vote_type from Votes where user_id = ? and vote_type = ? and post_id = ?",[user_id,"upvote",post_id]) 
     print(has_upvoted)
     try:
         if has_upvoted==[]:
             pass
         else:
-            cursor.execute("DELETE FROM Votes WHERE post_id = ? and vote_type = ?",[post_id,"upvote"])
+            cursor.execute("DELETE FROM Votes WHERE user_id = ? and vote_type = ? and post_id = ?",[user_id,"upvote",post_id])
             db.commit()
             
         cursor.execute("INSERT INTO Votes (post_id,user_id,vote_type) VALUES (?,?,?);",(post_id,user_id,vote_type))
