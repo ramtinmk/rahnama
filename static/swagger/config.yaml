@@ -1,0 +1,149 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Your Flask Project API
+  description: A simple API documentation for your Flask project.
+  
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+
+paths:
+  /login:
+    get:
+      summary: Display login page
+      operationId: login
+      responses:
+        '200':
+          description: Login page rendered successfully
+        '500':
+          description: Internal server error
+
+  /login-post:
+    post:
+      summary: Authenticate user
+      operationId: login_post
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: email_or_username
+          in: formData
+          description: The email or username of the user
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The user's password
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Login successful, redirect to home
+        '401':
+          description: Unauthorized, incorrect credentials
+        '500':
+          description: Internal server error
+
+  /signup:
+    get:
+      summary: Display signup page
+      operationId: signup
+      responses:
+        '200':
+          description: Signup page rendered successfully
+        '500':
+          description: Internal server error
+
+  /signup-post:
+    post:
+      summary: Create new user account
+      operationId: signup_post
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                Username:
+                  type: string
+                  description: The desired username of the user
+                email:
+                  type: string
+                  description: The email address of the user
+                password:
+                  type: string
+                  description: The password for the account
+      responses:
+        '201':
+          description: User account created successfully
+        '409':
+          description: Conflict, user already exists
+        '500':
+          description: Internal server error
+
+  /questions:
+    get:
+      summary: Get list of questions
+      operationId: get_questions
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: List of questions returned successfully
+        '500':
+          description: Internal server error
+
+  /questions/ask:
+    get:
+      summary: Ask a question
+      operationId: ask_question
+      responses:
+        '200':
+          description: Ask a question page rendered successfully
+        '500':
+          description: Internal server error
+
+  /save_post:
+    post:
+      summary: Save a new post
+      operationId: save_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the post
+                body:
+                  type: string
+                  description: Body of the post
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    description: Tags related to the post
+      responses:
+        '201':
+          description: Post created successfully
+        '500':
+          description: Internal server error
+
+  /logout:
+    get:
+      summary: Logout user
+      operationId: logout
+      responses:
+        '200':
+          description: Logout successful
+        '500':
+          description: Internal server error

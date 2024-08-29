@@ -16,10 +16,13 @@ from flask import (
 from flask_oauthlib.client import OAuth
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from flasgger import Swagger
+
 from database_utils import *
 
 app = Flask(__name__)
 
+swagger = Swagger(app, template_file="C:/Users/HP/ramtin/goldis/project2/static/swagger/config.yaml")
 
 google_client_id = (
     "752114163217-acou1eavo31s8d71lbfb89l568b9bjck.apps.googleusercontent.com"
@@ -142,27 +145,29 @@ def login():
 @app.route("/login-post", methods=["POST"])
 def login_post():
     redirecting_url = "/login"
-
     input = request.form["email_or_username"]
 
     is_email = is_valid_email(input)
 
     password = request.form["password"]
-    if is_email:
-        user = query_db("select * from Users where email = ?", args=[input], one=True)
-    else:
-        user = query_db(
-            "select * from Users where username = ?", args=[input], one=True
-        )
+    try:
+        if is_email:
+            user = query_db("select * from Users where email = ?", args=[input], one=True)
+        else:
+            user = query_db(
+                "select * from Users where username = ?", args=[input], one=True
+            )
 
-    if user and check_password_hash(user["password"], password):
-        session["username"] = user["username"]
-        redirecting_url = "/home"
+        if user and check_password_hash(user["password"], password):
+            session["username"] = user["username"]
+            redirecting_url = "/home"
 
-    if redirecting_url == "/login":
-        flash("Incorrect username or password.", category="error")
+        if redirecting_url == "/login":
+            flash("Incorrect username or password.", category="error")
+            return redirect(redirecting_url),401
         return redirect(redirecting_url)
-    return redirect(redirecting_url)
+    except Exception as e:
+        return "Internal server error", 500
 
 
 @app.route("/redirect_auth")
@@ -646,4 +651,4 @@ def get_google_oauth_token():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=True)
