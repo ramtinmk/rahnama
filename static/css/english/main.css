@@ -190,3 +190,11 @@ body {
       transform: rotate(360deg);
   }
 }
+@media (max-width: 992px) {
+  #sidebar {
+      display: none; /* Hide by default on smaller screens */
+  }
+  #sidebar.active {
+      display: block; /* Show when active */
+  }
+}
