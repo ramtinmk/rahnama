@@ -1,5 +1,6 @@
-swagger: "2.0"
+
 info:
+  openapi: 3.0.0
   version: 1.0.0
   title: Your Flask Project API
   description: A simple API documentation for your Flask project.
@@ -58,27 +59,57 @@ paths:
     post:
       summary: Create new user account
       operationId: signup_post
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                Username:
-                  type: string
-                  description: The desired username of the user
-                email:
-                  type: string
-                  description: The email address of the user
-                password:
-                  type: string
-                  description: The password for the account
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: Username
+          in: formData
+          description: The email or username of the user
+          required: true
+          type: string
+        - name: email
+          in: formData
+          description: The email or username of the user
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: The user's password
+          required: true
+          type: string
       responses:
         '201':
           description: User account created successfully
         '409':
           description: Conflict, user already exists
+        '500':
+          description: Internal server error
+  /posts/{post_id}:
+    get:
+      summary: Get post details along with comments and metadata
+      operationId: get_post
+      parameters:
+        - name: post_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the post
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number for paginating comments (default is 1)
+      responses:
+        '200':
+          description: Post details along with comments and related metadata
+          content:
+            text/html:
+              schema:
+                type: string
+                description: The HTML content of the post page
         '500':
           description: Internal server error
 
@@ -109,34 +140,44 @@ paths:
           description: Ask a question page rendered successfully
         '500':
           description: Internal server error
-
   /save_post:
     post:
       summary: Save a new post
       operationId: save_post
       requestBody:
+        description: saving the new post
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  description: Title of the post
-                body:
-                  type: string
-                  description: Body of the post
-                tags:
-                  type: array
-                  items:
-                    type: string
-                    description: Tags related to the post
+              $ref: '#/components/schemas/post' 
       responses:
         '201':
           description: Post created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Post created successfully"
+                  post_id:
+                    type: integer
+                    description: ID of the created post
+        '400':
+          description: Invalid input, missing or incorrect parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"
         '500':
           description: Internal server error
+
 
   /logout:
     get:
@@ -147,3 +188,20 @@ paths:
           description: Logout successful
         '500':
           description: Internal server error
+components:
+  schemas:
+    post:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "hello"
+        body:
+          type: string
+          example: "hello body"
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags related to the post
+          example: ["python", "flask", "swagger"]

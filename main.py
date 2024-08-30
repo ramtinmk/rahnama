@@ -205,33 +205,36 @@ def signup_post():
 
     hashed_password = generate_password_hash(password)
 
-    user_have_account = query_db(
-        "select email from Users where email = ?", [email], one=True
-    )
+    try:
+        user_have_account = query_db(
+            "select email from Users where email = ?", [email], one=True
+        )
 
-    db = get_db()
-    cursor = db.cursor()
+        db = get_db()
+        cursor = db.cursor()
 
-    if user_have_account is not None:
-        has_account = True
+        if user_have_account is not None:
+            has_account = True
 
-    if not has_account:
-        try:
-            cursor.execute(
-                "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)",
-                (username, email, hashed_password),
-            )
-            db.commit()
+        if not has_account:
+            try:
+                cursor.execute(
+                    "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)",
+                    (username, email, hashed_password),
+                )
+                db.commit()
 
-        except sqlite3.Error as e:
-            app.logger.error(e)
-        finally:
-            db.close()
-            session["username"] = username
-            return redirect("/home")
-    else:
-        flash("the user has been already taken with this email")
-        return redirect("/signup")
+            except sqlite3.Error as e:
+                app.logger.error(e)
+            finally:
+                db.close()
+                session["username"] = username
+                return redirect("/home")
+        else:
+            flash("the user has been already taken with this email")
+            return redirect("/signup"),401
+    except Exception as e:
+        return "Internal server error",500
 
 
 @app.route("/posts/<post_id>")
@@ -241,54 +244,57 @@ def posts(post_id):
 
     offset = (page - 1) * per_page
 
-    post = query_db("select * from Posts where post_id = ?", [post_id], one=True)
+    try:
+        post = query_db("select * from Posts where post_id = ?", [post_id], one=True)
 
-    comments = query_db(
-        "select * from Comments where post_id = ? ORDER BY created_at DESC limit ? offset ?",
-        [post_id, per_page, offset],
-    )
-
-    for comment in comments:
-        commentor_username = query_db(
-            "select username from Users where user_id = ?",
-            [comment["user_id"]],
-            one=True,
-        )["username"]
-        comment["username"] = commentor_username
-        comment["time_ago"] = time_ago(comment["created_at"])
-    # Get the total number of posts to calculate total pages
-    total_comments = query_db(
-        "SELECT COUNT(*) as count FROM Comments where post_id = ?", [post_id], one=True
-    )["count"]
-
-    user_posted_id = query_db(
-        "select user_id from Posts where post_id = ?", args=[post_id], one=True
-    )["user_id"]
-
-    username_posted = query_db(
-        "select username from Users where user_id = ?", args=[user_posted_id], one=True
-    )["username"]
-
-    tag_ids = query_db("select tag_id from PostTags where post_id = ?", args=[post_id])
-    tags = []
-    for id in tag_ids:
-        tags.append(
-            query_db(
-                "select tag_name from Tags where tag_id = ?",
-                args=[id["tag_id"]],
-                one=True,
-            )["tag_name"]
+        comments = query_db(
+            "select * from Comments where post_id = ? ORDER BY created_at DESC limit ? offset ?",
+            [post_id, per_page, offset],
         )
 
-    upvote_count = query_db(
-        "select COUNT(*) as upvote_count from Votes where post_id = ? and vote_type = ?",
-        [post_id, "upvote"],
-        one=True,
-    )["upvote_count"]
+        for comment in comments:
+            commentor_username = query_db(
+                "select username from Users where user_id = ?",
+                [comment["user_id"]],
+                one=True,
+            )["username"]
+            comment["username"] = commentor_username
+            comment["time_ago"] = time_ago(comment["created_at"])
+        # Get the total number of posts to calculate total pages
+        total_comments = query_db(
+            "SELECT COUNT(*) as count FROM Comments where post_id = ?", [post_id], one=True
+        )["count"]
 
-    post["time_ago"] = time_ago(post["created_at"])
+        user_posted_id = query_db(
+            "select user_id from Posts where post_id = ?", args=[post_id], one=True
+        )["user_id"]
 
-    total_pages = (total_comments + per_page - 1) // per_page  # Total pages
+        username_posted = query_db(
+            "select username from Users where user_id = ?", args=[user_posted_id], one=True
+        )["username"]
+
+        tag_ids = query_db("select tag_id from PostTags where post_id = ?", args=[post_id])
+        tags = []
+        for id in tag_ids:
+            tags.append(
+                query_db(
+                    "select tag_name from Tags where tag_id = ?",
+                    args=[id["tag_id"]],
+                    one=True,
+                )["tag_name"]
+            )
+
+        upvote_count = query_db(
+            "select COUNT(*) as upvote_count from Votes where post_id = ? and vote_type = ?",
+            [post_id, "upvote"],
+            one=True,
+        )["upvote_count"]
+
+        post["time_ago"] = time_ago(post["created_at"])
+
+        total_pages = (total_comments + per_page - 1) // per_page  # Total pages
+    except Exception as e:
+        return "Internal server error",500
 
     try:
         sql_query = """UPDATE Posts
@@ -311,7 +317,7 @@ def posts(post_id):
         )
     except Exception as e:
         print(f"Error rendering template: {e}")
-        return "Failed to render template", 500
+        return "Internal server error", 500
 
 
 @app.route("/questions/ask")
