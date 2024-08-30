@@ -17,12 +17,17 @@ from flask_oauthlib.client import OAuth
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from flasgger import Swagger
+import os
 
 from database_utils import *
 
 app = Flask(__name__)
 
-swagger = Swagger(app, template_file="C:/Users/HP/ramtin/goldis/project2/static/swagger/config.yaml")
+
+
+swagger_config_path =os.getcwd()+"\\"+ "static"+  "\\" + os.path.join("swagger", "config.yaml")
+
+swagger = Swagger(app, template_file=swagger_config_path.replace("\\","/"))
 
 google_client_id = (
     "752114163217-acou1eavo31s8d71lbfb89l568b9bjck.apps.googleusercontent.com"
