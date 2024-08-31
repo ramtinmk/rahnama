@@ -1,13 +1,24 @@
-document.querySelector('.navbar-toggler').addEventListener('click', function () {
-  document.getElementById('sidebar').classList.toggle('active');
-});
-// script.js
 
-document.getElementById('sidebarToggle').addEventListener('click', function() {
-  var sidebar = document.getElementById('sidebar');
-  if (sidebar.style.display === "none" || !sidebar.style.display) {
-      sidebar.style.display = "block";
-  } else {
-      sidebar.style.display = "none";
-  }
-});
+// add hovered class to selected list item
+let list = document.querySelectorAll(".navigation li");
+
+function activeLink() {
+    list.forEach((item) => {
+        item.classList.remove("hovered");
+    });
+    this.classList.add("hovered");
+}
+
+list.forEach((item) => item.addEventListener("mouseover", activeLink));
+
+// Menu Toggle
+let toggle = document.querySelector(".toggle");
+let navigation = document.querySelector(".navigation");
+let main = document.querySelector(".main");
+let navbar = document.querySelector(".navbar");
+
+toggle.onclick = function () {
+    navigation.classList.toggle("active");
+    main.classList.toggle("active");
+    navbar.style.right = navigation.classList.contains("active") ? "80px" : "300px"; // تنظیم مجدد موقعیت نوار بالا
+};

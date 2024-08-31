@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به حساب کاربری</title>
+    <link href="../../static/css/persian/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+</head>
+<body>
+    <div class="box">
+        <span class="borderline"></span>
+        <form action="/login-post" method="post">
+            <h2>ورود به حساب کاربری</h2>
+            <div class="inputbox">
+                <input type="text" name="email_or_username" required="">
+                <span>نام کاربری</span>
+                <i></i>
+            </div>
+            <div class="inputbox">
+                <input type="password" name="password" required="">
+                <span>رمز عبور</span>
+                <i></i>
+            </div>
+            <div class="links">
+                <a href="#">حساب کاربری ندارید ؟</a>
+                <a href="/signup">ثبت نام</a>
+            </div>
+            <input type="submit" value="ورود"/>
+
+            <div class="text-center login_option">یا با استفاده از</div>
+            <div class="d-flex justify-content-between mt-3">
+                <a href="/redirect_auth" class="btn btn-outline-danger w-100 me-2">
+                    <img src="../../static/images/google.jpg" alt="Google" class="img-fluid rounded-circle" style="width: 20px; height: 20px; margin-right: 8px;"/>
+                    گوگل
+                </a>
+                <a href="/linkedin_auth" class="btn btn-outline-primary w-100">
+                    <img src="../../static/images/linkedin.jpg" alt="LinkedIn" class="img-fluid rounded-circle" style="width: 20px; height: 20px; margin-right: 8px;"/>
+                    لینکدین
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
