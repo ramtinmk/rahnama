@@ -23,6 +23,7 @@ from database_utils import *
 
 app = Flask(__name__)
 
+language = "english"
 
 
 swagger_config_path =os.getcwd()+"\\"+ "static"+  "\\" + os.path.join("swagger", "config.yaml")
@@ -139,12 +140,12 @@ def home():
             username = session["username"]
     app.logger.info("the user ramtin is in home")
 
-    return render_template("home.html", is_logged=is_logged, username=username)
+    return render_template(f"{language}/home.html", is_logged=is_logged, username=username)
 
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template(f"{language}/login.html")
 
 
 @app.route("/login-post", methods=["POST"])
@@ -198,7 +199,7 @@ def auth():
 
 @app.route("/signup")
 def signup():
-    return render_template("signup.html")
+    return render_template(f"{language}/signup.html")
 
 
 @app.route("/signup-post", methods=["POST"])
@@ -311,7 +312,7 @@ def posts(post_id):
             "select views from Posts where post_id = ? ", [post_id], one=True
         )["views"]
         return render_template(
-            "post.html",
+            f"{language}/post.html",
             post=post,
             username=username_posted,
             tags=tags,
@@ -327,7 +328,7 @@ def posts(post_id):
 
 @app.route("/questions/ask")
 def ask_question():
-    return render_template("ask_question.html")
+    return render_template(f"{language}/ask_question.html")
 
 
 @app.route("/save_post", methods=["POST"])
@@ -404,7 +405,7 @@ def questions():
         post["time_ago"] = time_ago(post["created_at"])
     # Render the template and pass the posts, current page, and total pages
     return render_template(
-        "questions.html", posts=posts, page=page, total_pages=total_pages
+        f"{language}/questions.html", posts=posts, page=page, total_pages=total_pages
     )
 
 
@@ -418,7 +419,7 @@ def myquestions():
 
     my_posts = query_db("SELECT * from Posts WHERE user_id = ?", args=[user_id])
 
-    return render_template("myquestions.html", posts=my_posts)
+    return render_template(f"{language}/myquestions.html", posts=my_posts)
 
 
 @app.route("/upvote", methods=["POST"])
@@ -539,7 +540,7 @@ def notifications():
     for nott in notifs:
         nott["time_ago"] = time_ago(nott["created_at"])
     print(notifs)
-    return render_template("notifications.html", notifs=notifs, is_logged=is_logged)
+    return render_template(f"{language}/notifications.html", notifs=notifs, is_logged=is_logged)
 
 
 @app.route("/search")
@@ -551,7 +552,7 @@ def search():
         one=False,
     )
 
-    return render_template("search_result.html", posts=search_result)
+    return render_template(f"{language}/search_result.html", posts=search_result)
 
 
 @app.route("/yourprofile")
@@ -566,7 +567,7 @@ def yourprofile():
         is_logged = True
 
     return render_template(
-        "myprofile.html", username=username, email=email, is_logged=is_logged
+        f"{language}/myprofile.html", username=username, email=email, is_logged=is_logged
     )
 
 
