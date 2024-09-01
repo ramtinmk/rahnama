@@ -11,8 +11,44 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
     </style>
-     <script>
-        function upvote(){
+<script>
+    function upvote(){
+        const post_id = {{post.post_id}};
+        const username = "{{username}}";
+        console.log(username)
+        const data = {
+            username:username,
+            post_id:post_id,
+    };
+    fetch('/upvote', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the JSON response
+    })
+    .then(data => {
+        if (data.status='ok') { 
+               // You can manipulate the DOM here to update the upvote count
+        const upvoteCountElement = document.querySelector('span'); // Locate the element
+        upvoteCountElement.textContent = parseInt(upvoteCountElement.textContent) + 1;
+        } else {
+            console.error('Failed to create post:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    
+    window.location.href = `/posts/${data.post_id}`;
+};
+    function downvote(){
             const post_id = {{post.post_id}};
             const username = "{{username}}";
             console.log(username)
@@ -20,7 +56,7 @@
                 username:username,
                 post_id:post_id,
         };
-        fetch('/upvote', {
+        fetch('/downvote', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +71,7 @@
         })
         .then(data => {
             if (data.status='ok') { 
-                   // You can manipulate the DOM here to update the upvote count
+                // You can manipulate the DOM here to update the upvote count
             const upvoteCountElement = document.querySelector('span'); // Locate the element
             upvoteCountElement.textContent = parseInt(upvoteCountElement.textContent) + 1;
             } else {
@@ -48,66 +84,30 @@
         
         window.location.href = `/posts/${data.post_id}`;
     };
-        function downvote(){
-                const post_id = {{post.post_id}};
-                const username = "{{username}}";
-                console.log(username)
-                const data = {
-                    username:username,
-                    post_id:post_id,
-            };
-            fetch('/downvote', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // Parse the JSON response
-            })
-            .then(data => {
-                if (data.status='ok') { 
-                    // You can manipulate the DOM here to update the upvote count
-                const upvoteCountElement = document.querySelector('span'); // Locate the element
-                upvoteCountElement.textContent = parseInt(upvoteCountElement.textContent) + 1;
-                } else {
-                    console.error('Failed to create post:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-            
-            window.location.href = `/posts/${data.post_id}`;
-        };
-        function addcomment(){
-    
-            const comment_body = document.getElementById("comment").value;
-            const post_id = {{post.post_id}};
-    
-            data = {"body":comment_body,
-                    "post_id": post_id
+    function addcomment(){
+
+        const comment_body = document.getElementById("comment").value;
+        const post_id = {{post.post_id}};
+
+        data = {"body":comment_body,
+                "post_id": post_id
+        }
+
+        fetch('/comment-post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-    
-            fetch('/comment-post', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // Parse the JSON response
-            })
-        };
-        </script>
+            return response.json(); // Parse the JSON response
+        })
+    };
+    </script>
 </head>
 <body>
     <div class="container">
@@ -219,9 +219,12 @@
             <div class="comment-section" style="text-align: right;">
                 <div class="comment-top" style="border-bottom: 1px solid #ccc; padding: 10px;">
                     <div class="votings" style="margin-left: 10px;">
-                        <i class="fa fa-sort-up fa-2x hit-voting" onclick="upvote()"></i>
-                        <span id="upvote-count">{{upvote_count}}</span>
-                        <i class="fa fa-sort-down fa-2x hit-voting" onclick="downvote()"></i>
+                        <i  onclick="upvote()">
+                        <span id="upvote-count"> <ion-icon name="caret-up-outline"></ion-icon>{{upvote_count}}</span>
+                    </i>
+                        <i onclick="downvote()">
+                             <span > <ion-icon name="caret-down-outline"></ion-icon></span>
+                        </i>
                     </div>
                     <div style="margin-left: 15px; flex-grow: 1;">
                         <div class="post-title">
@@ -232,19 +235,19 @@
                         </div>
                         <div style="display: flex; align-items: center;">
                             <span class="bdge" style="margin-right: 5px;"></span>
-                            <span>{{post["time_ago"]}}</span> 
+                            <span style="color: ;">{{post["time_ago"]}}</span> 
                         </div>
                         <span>بازدیدها: {{views}}</span>
                     </div>
                 </div>
                 <div class="mb-4">
-                    <hr>
+                  
                     <h5>نظرات</h5>
                     <div id="answers" style="margin-top: 10px;">
                         {% for comment in comments %}
                         <div class="alert alert-secondary mb-1" style="background-color: #f1f1f1; padding: 10px; border-radius: 5px;">
                             <strong>{{comment.username}}:</strong> {{comment.body}} <br>
-                            ({{comment.time_ago}}) {% if comment.username == session["username"] %} <a href="/delete-comment/{{comment.comment_id}}" class="button">حذف</a> {% endif %}
+                            ({{comment.time_ago}}) {% if comment.username == session["username"] %} <a href="/delete-comment/{{comment.comment_id}}" class="delete" >حذف</a> {% endif %}
                         </div>
                         {% endfor %}
                     </div>
@@ -255,7 +258,7 @@
                     <div class="form-group" style="margin-bottom: 15px;">
                         <textarea class="form-control" id="comment" rows="3" placeholder="پاسخ یا نظر خود را اینجا بنویسید..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
                     </div>
-                    <button type="submit" style="background-color: #d93e5b; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">ارسال</button>
+                    <button type="submit" style="background-color: #d93e5b; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"  onclick="addcomment()">ارسال</button>
                 </form>
             </div>
         </div>
