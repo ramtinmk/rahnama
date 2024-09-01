@@ -220,72 +220,68 @@ body {
     height: 100%;
     object-fit: cover;
   }
-  .main-content{
+  .main-content {
     padding-right: 20px;
-    text-align: center;
     min-height: 100vh;
     font-family: "Alexandria", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-  }
-  .text-container {
-    text-align: center; /* متن وسط‌چین */
-    max-width: 600px; /* حداکثر عرض برای متن */
-    margin: 0 auto; /* وسط‌چین کردن */
+    background-color: #f9f9f4; /* رنگ پس زمینه اصلی */
 }
 
-.welcome-message {
-    font-size: 1.75rem; /* اندازه متن خوش آمدگویی */
-    color:#7099b8; /* رنگ ثانویه */
-    margin-bottom: 16px; /* فاصله زیر */
+.question {
+    padding: 30px; /* افزایش حاشیه */
+    background-color: white; /* پس زمینه فرم */
+    border-radius: 50px; /* تغییر شکل گوشه‌ها */
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
+    margin-top: 25px;
+    transition: all 0.3s; /* انتقال نرم */
+}
+
+.question:hover {
+    transform: scale(1.02); /* بزرگ کردن فرم هنگام هاور */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر هنگام هاور */
+}
+
+.label {
+    font-weight: bold;
+    color: #204a73; /* رنگ متن */
+    margin-top: 25px; /* فاصله بیشتر */
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button[type="button"] {
+    background-color: #d93e5b; /* رنگ قرمز */
+    color: white;
+    border: none; /* حذف حاشیه */
+    border-radius: 5px; /* گوشه‌های گرد */
+    padding: 10px 20px; /* حاشیه داخلی */
+    font-size: 16px; /* اندازه فونت */
+    cursor: pointer; /* تغییر نشانگر */
+    transition: background-color 0.2s, transform 0.2s; /* برای انیمیشن */
+}
+
+button[type="button"]:hover {
+    background-color: #b6364e; /* رنگ قرمز تیره بر روی هاور */
+    transform: translateY(-2px); /* حرکت کمی به بالا */
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #7099b8; /* حاشیه خاکستری */
+    border-radius:15px; /* گوشه‌های گرد */
+    margin-bottom: 25px;
+    transition: border-color 0.3s; /* انتقال نرم */
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: #64bedb; /* رنگ کادر روی فوکوس */
+    outline: none; /* حذف کادر */
 }
 
 .titr {
-    font-weight: bold; /* ضخیم کردن متن */
-    font-size: 2.5rem; /* اندازه بزرگ‌تر */
-    margin-top: 20px; /* فاصله بالای عنوان */
-    color: #204a74;
-}
-
-.lead {
-    font-size: 1.25rem; /* اندازه متن توضیحات */
-    color:#7099b8; /* رنگ متن تیره */
-    margin-bottom: 24px; /* فاصله زیر */
-}
-
-/* گروه دکمه‌ها */
-.button-group {
-    display: flex;
-    justify-content: center; /* وسط‌چین کردن دکمه‌ها */
-    gap: 25px; /* فاصله بین دکمه‌ها */
-    margin-top: 20px; /* فاصله بالای دکمه‌ها */
-}
-
-/* استایل دکمه‌ها */
-.btn {
-    padding: 10px 20px; /* فضای داخلی دکمه‌ها */
-    font-size: 1rem; /* اندازه فونت دکمه‌ها */
-    border-radius: 5px; /* گوشه‌های گرد */
-    text-decoration: none; /* حذف زیرخط */
-    margin-bottom: 20px;
-}
-
-.btn-start {
-    background-color: #dc3545; /* رنگ دکمه "Get Started" */
-    color: white; /* رنگ متن دکمه */
-}
-
-.btn-start:hover {
-    background-color: #d93e5b; /* رنگ دکمه هنگام هاور */
-}
-
-.btn-about {
-    background-color: transparent; /* پس‌زمینه شفاف */
-    border: 2px solid #d93e5b; /* حاشیه زرد */
-    color:#d93e5b; /* رنگ متن */
-}
-
-.btn-about:hover {
-    background-color: #d93e5b; /* رنگ دکمه هنگام هاور */
-    color:#f9f9f4; /* رنگ متن به سفید */
+    color: #204a73; /* رنگ عنوان */
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px; /* فاصله زیر عنوان */
 }
