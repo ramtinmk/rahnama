@@ -23,7 +23,7 @@ from database_utils import *
 
 app = Flask(__name__)
 
-language = "english"
+language = "persian"
 
 
 swagger_config_path =os.getcwd()+"\\"+ "static"+  "\\" + os.path.join("swagger", "config.yaml")
