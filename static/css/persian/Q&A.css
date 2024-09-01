@@ -285,3 +285,97 @@ input[type="text"]:focus, textarea:focus {
     text-align: center;
     margin-bottom: 20px; /* فاصله زیر عنوان */
 }
+.post{
+    background-color: #f9f9f4; /* رنگ پس زمینه */
+    border-radius: 8px; /* گوشه‌های گرد */
+    padding: 20px; /* حاشیه داخلی */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+.comment-top {
+    border-bottom: 1px solid #ccc; /* خط جداکننده */
+    padding: 15px 0; /* حاشیه داخلی بیشتر */
+    display: flex; /* طرح افقی */
+}
+
+.votings {
+    margin: 0 10px; /* حاشیه مجدد */
+    display: flex;
+    align-items: center; /* تراز عمودی */
+}
+
+.votings i {
+    cursor: pointer; /* نشانگر موس روی آیکون‌های رأی */
+    color: #204a73; /* رنگ آیکون‌های رأی */
+    transition: color 0.3s; /* انتقال نرم رنگ */
+}
+
+.votings i:hover {
+    color: #7099b8; /* رنگ روشن‌تر بر روی هاور */
+}
+
+.post-title {
+    flex-grow: 1; /* اجازه رشد به باقی مانده */
+}
+
+.text-muted {
+    color: #999; /* رنگ متن کم‌رنگ */
+}
+
+h4.text-primary {
+    color: #204a73; /* رنگ عنوان */
+    margin: 5px 0; /* حاشیه عمودی */
+}
+
+h5.text-secondary {
+    color: #64bedb; /* رنگ برچسب‌ها */
+    margin: 3px 0; /* حاشیه عمودی */
+}
+
+h6.text-muted {
+    color: #7099b8; /* رنگ متن اصلی */
+    margin: 3px 0; /* حاشیه عمودی */
+}
+
+.alert {
+    background-color: #d9e5b; /* رنگ پس زمینه نظرات */
+    padding: 12px; /* حاشیه داخلی */
+    border-radius: 5px; /* گوشه‌های گرد */
+    border: 1px solid #ccc; /* حاشیه */
+}
+
+.alert strong {
+    color: #204a73; /* رنگ نام کاربری */
+}
+
+#commentForm h5 {
+    color: #204a73; /* رنگ عنوان فرم */
+}
+
+textarea {
+    width: 100%; /* عرض کامل */
+    padding: 10px; /* حاشیه داخلی */
+    border: 1px solid #ccc; /* رنگ حاشیه */
+    border-radius: 5px; /* گوشه‌های گرد */
+    transition: border-color 0.3s; /* انتقال نرم رنگ حاشیه */
+}
+
+textarea:focus {
+    border-color: #64bedb; /* رنگ حاشیه روی فوکوس */
+    outline: none; /* حذف کادر خارجی */
+}
+
+button[type="submit"] {
+    background-color: #d93e5b; /* رنگ دکمه */
+    color: white; /* رنگ متن دکمه */
+    padding: 10px 20px; /* حاشیه داخلی */
+    border: none; /* حذف حاشیه */
+    border-radius: 5px; /* گوشه‌های گرد */
+    cursor: pointer; /* نشانگر موس روی دکمه */
+    transition: background-color 0.3s, transform 0.2s; /* انتقال نرم */
+}
+
+button[type="submit"]:hover {
+    background-color: #b6364e; /* رنگ تیره‌تر بر روی هاور */
+    transform: translateY(-2px); /* حرکت دکمه به بالا بر روی هاور */
+}

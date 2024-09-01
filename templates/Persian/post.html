@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حل مسأله - Solve It Place</title>
+    <link href="../../static/css/persian/Q&A.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
+    </style>
+     <script>
+        function upvote(){
+            const post_id = {{post.post_id}};
+            const username = "{{username}}";
+            console.log(username)
+            const data = {
+                username:username,
+                post_id:post_id,
+        };
+        fetch('/upvote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+            if (data.status='ok') { 
+                   // You can manipulate the DOM here to update the upvote count
+            const upvoteCountElement = document.querySelector('span'); // Locate the element
+            upvoteCountElement.textContent = parseInt(upvoteCountElement.textContent) + 1;
+            } else {
+                console.error('Failed to create post:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        
+        window.location.href = `/posts/${data.post_id}`;
+    };
+        function downvote(){
+                const post_id = {{post.post_id}};
+                const username = "{{username}}";
+                console.log(username)
+                const data = {
+                    username:username,
+                    post_id:post_id,
+            };
+            fetch('/downvote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the JSON response
+            })
+            .then(data => {
+                if (data.status='ok') { 
+                    // You can manipulate the DOM here to update the upvote count
+                const upvoteCountElement = document.querySelector('span'); // Locate the element
+                upvoteCountElement.textContent = parseInt(upvoteCountElement.textContent) + 1;
+                } else {
+                    console.error('Failed to create post:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            
+            window.location.href = `/posts/${data.post_id}`;
+        };
+        function addcomment(){
+    
+            const comment_body = document.getElementById("comment").value;
+            const post_id = {{post.post_id}};
+    
+            data = {"body":comment_body,
+                    "post_id": post_id
+            }
+    
+            fetch('/comment-post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the JSON response
+            })
+        };
+        </script>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+               <!-- <li>
+                 <a href="/home">
+                        <span class="icon">
+                            <img src="../../static/images/logo.png.png" alt="logo" class="logo">
+                        </span>
+                    </a>
+                  
+                </li> -->
+                <li>
+                    <a href="/home">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title"> صفحه اصلی</span>
+                    </a>
+                </li>
+                {% if not is_logged %}
+                <li>
+                    <a href="/login">
+                        <span class="icon">
+                            <ion-icon name="log-in-outline"></ion-icon>
+                        </span>
+                        <span class="title"> ورود به حساب کاربری
+                        </span>
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="/logout">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title"> خروج از حساب کاربری
+                        </span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if is_logged %}
+                <li>
+                    <a href="/yourprofile">
+                        <span class="icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <span class="title"> پروفایل</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/questions/ask">
+                        <span class="icon">
+                            <ion-icon name="duplicate-outline"></ion-icon>
+                        </span>
+                        <span class="title"> ثبت سوال</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/myquestions">
+                        <span class="icon">
+                            <ion-icon name="documents-outline"></ion-icon>
+                        </span>
+                        <span class="title"> سوالات من</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notifications">
+                        <span class="icon">
+                            <ion-icon name="notifications-outline"></ion-icon>
+                        </span>
+                        <span class="title"> پیام های جدید</span>
+                    </a>
+                </li>
+            {% endif %}
+                <li>
+                    <a href="/questions">
+                        <span class="icon">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                        </span>
+                        <span class="title"> تالار گفت و گو</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="search" action="/search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+
+            <div class="logo">
+                <img src="../../static/images/logo.png.png" alt="">
+            </div>
+    </div>
+    <div class="main-content">
+        <div class="post">
+            <div class="comment-section" style="text-align: right;">
+                <div class="comment-top" style="border-bottom: 1px solid #ccc; padding: 10px;">
+                    <div class="votings" style="margin-left: 10px;">
+                        <i class="fa fa-sort-up fa-2x hit-voting" onclick="upvote()"></i>
+                        <span id="upvote-count">{{upvote_count}}</span>
+                        <i class="fa fa-sort-down fa-2x hit-voting" onclick="downvote()"></i>
+                    </div>
+                    <div style="margin-left: 15px; flex-grow: 1;">
+                        <div class="post-title">
+                            <span class="text-muted">{{username}}</span>
+                            <h4 class="text-primary mb-1">{{post.title}}</h4>
+                            <h5 class="text-secondary mb-2">{{post.tags}}</h5>
+                            <h6 class="text-muted mb-3">{{post.body}}</h6>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="bdge" style="margin-right: 5px;"></span>
+                            <span>{{post["time_ago"]}}</span> 
+                        </div>
+                        <span>بازدیدها: {{views}}</span>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <hr>
+                    <h5>نظرات</h5>
+                    <div id="answers" style="margin-top: 10px;">
+                        {% for comment in comments %}
+                        <div class="alert alert-secondary mb-1" style="background-color: #f1f1f1; padding: 10px; border-radius: 5px;">
+                            <strong>{{comment.username}}:</strong> {{comment.body}} <br>
+                            ({{comment.time_ago}}) {% if comment.username == session["username"] %} <a href="/delete-comment/{{comment.comment_id}}" class="button">حذف</a> {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+        
+                <form id="commentForm" style="margin-top: 10px;">
+                    <h5>نظر خود را اضافه کنید</h5>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <textarea class="form-control" id="comment" rows="3" placeholder="پاسخ یا نظر خود را اینجا بنویسید..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+                    </div>
+                    <button type="submit" style="background-color: #d93e5b; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">ارسال</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="../../static/js/main.js"></script>
+</body>
+</html>
