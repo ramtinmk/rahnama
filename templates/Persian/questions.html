@@ -4,58 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حل مسأله - Solve It Place</title>
-    <link href="../../static/css/persian/Q&A.css" rel="stylesheet">
+    <link href="../../static/css/persian/questions.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
     </style>
-     <script>
-        function submitForm() {
-    // Get form data
-    const title = document.getElementById('title').value;
-    const body = document.getElementById('body').value;
-    const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim());
-
-
-    // Create a JSON object
-    const data = {
-        title: title,
-        body: body,
-        tags: tags
-    };
-
-
-    // Send data to the Flask backend using fetch API
-    fetch('/save_post', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); // Parse the JSON response
-    })
-    .then(data => {
-        if (data.post_id) {
-            // Redirect to the new post URL
-            window.location.href = `/posts/${data.post_id}`;
-        } else {
-            console.error('Failed to create post:', data.error);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-
-    </script>
 </head>
 <body>
     <div class="container">
@@ -163,22 +118,20 @@
             </div>
     </div>
     <div class="main-content">
-        <div class="question">
-             <h2 class="titr">سوالات خود را اینجا بپرسید</h2>
-                <form id="myForm"  action="/posts">
-                     <label class="label" for="title">عنوان:</label><br><br>
-                     <input type="text" id="title" name="title" required>
-
-                     <label class="label" for="body">متن پرسش:</label><br><br>
-                    <textarea id="body" name="body" required></textarea>
-
-                    <label  class="label" for="tags">برچسب‌ها (با ویرگول جدا شوند):</label><br><br>
-                    <input type="text" id="tags" name="tags">
-
-                     <button type="button" onclick="submitForm()" >ارسال</button>
-                </form>
+        <div id="main-content">
+            <h1>در اینجا میتوانید پرسش و پاسخ ها را مشاهده کنید</h1>
+            <h4>کلیک کنید تا به صفحه سوال بروید</h4>
+            <div class="posts">
+            <ul>
+                {% for post in posts %}
+                   <li>
+                    <a href="/posts/{{post.post_id}}">{{post.title}} ({{post.time_ago}})</a>
+                   </li> 
+                {% endfor %}
+                </ul>
             </div>
         </div>
+    </div>
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

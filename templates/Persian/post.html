@@ -217,7 +217,7 @@
     <div class="main-content">
         <div class="post">
             <div class="comment-section" style="text-align: right;">
-                <div class="comment-top" style="border-bottom: 1px solid #ccc; padding: 10px;">
+                <div class="comment-top" style="border-bottom: 1px solid #204a73; padding: 10px;">
                     <div class="votings" style="margin-left: 10px;">
                         <i  onclick="upvote()">
                         <span id="upvote-count"> <ion-icon name="caret-up-outline"></ion-icon>{{upvote_count}}</span>
@@ -228,14 +228,14 @@
                     </div>
                     <div style="margin-left: 15px; flex-grow: 1;">
                         <div class="post-title">
-                            <span class="text-muted">{{username}}</span>
+                            <span class="text-muted">{{username}}</span> :
                             <h4 class="text-primary mb-1">{{post.title}}</h4>
                             <h5 class="text-secondary mb-2">{{post.tags}}</h5>
                             <h6 class="text-muted mb-3">{{post.body}}</h6>
                         </div>
                         <div style="display: flex; align-items: center;">
                             <span class="bdge" style="margin-right: 5px;"></span>
-                            <span style="color: ;">{{post["time_ago"]}}</span> 
+                            <span class="time_ago">{{post["time_ago"]}}</span> 
                         </div>
                         <span>بازدیدها: {{views}}</span>
                     </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حل مسأله - Solve It Place</title>
-    <link href="../../static/css/persian/Q&A.css" rel="stylesheet">
+    <link href="../../static/css/persian/questions.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
@@ -163,22 +163,27 @@
             </div>
     </div>
     <div class="main-content">
-        <div class="question">
-             <h2 class="titr">سوالات خود را اینجا بپرسید</h2>
-                <form id="myForm"  action="/posts">
-                     <label class="label" for="title">عنوان:</label><br><br>
-                     <input type="text" id="title" name="title" required>
-
-                     <label class="label" for="body">متن پرسش:</label><br><br>
-                    <textarea id="body" name="body" required></textarea>
-
-                    <label  class="label" for="tags">برچسب‌ها (با ویرگول جدا شوند):</label><br><br>
-                    <input type="text" id="tags" name="tags">
-
-                     <button type="button" onclick="submitForm()" >ارسال</button>
-                </form>
-            </div>
+        {% if is_logged %}
+        <div class="profile-section">
+            <h2>پروفایل</h2>
+            <form method="POST" action="/profile/update">
+                <div class="form-group">
+                    <label for="username"><strong>نام کاربری:</strong></label>
+                    <input type="text" id="username" name="username" value="{{ username }}">
+                </div>
+                <div class="form-group">
+                    <label for="email"><strong>ایمیل:</strong></label>
+                    <input type="email" id="email" name="email" value="{{ email }}">
+                </div>
+                <button type="submit" class="submit-btn">به‌روزرسانی پروفایل</button>
+            </form>
         </div>
+        {% else %}
+        <p>لطفا وارد شوید تا اطلاعات پروفایل خود را ببینید.</p>
+        {% endif %}
+        
+
+    </div>
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

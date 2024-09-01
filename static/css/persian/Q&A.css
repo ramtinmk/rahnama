@@ -5,24 +5,36 @@
     --secondary-color: #7099b8; /* رنگ ثانویه */
     --dark-color: #204a74; /* رنگ تیره */
 }
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
 
-
-
-*{
-    margin: 0px;
-    padding: 0px;
-    direction: rtl;
+@media(max-width: 992px) {
+    .navbar,
+    .main {
+        width: 100%;
+        right: 0;
+    }
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;}
+    
+
 body {
     min-height:100vh;
     overflow-x: hidden;
     background-color: var(--background-color); /* پس‌زمینه */
-}
+    box-sizing: border-box;
+    }
+    
 
 .container {
     position: relative;
     width: 100%;
+        display: flex;
+    flex-direction: column; /* برای تنظیمات عمودی */
+    align-items: flex-start; /* برای راست‌چین کردن */
 }
 
 /* =============== Navigation ================ */
@@ -31,7 +43,7 @@ body {
     width: 300px;
     height: 100%;
     background: var(--primary-color); /* رنگ آبی */
-    border-right: 10px solid var(--primary-color);
+    border-right: 15px solid var(--primary-color);
     transition: 0.5s;
     overflow: hidden;
 }
@@ -50,8 +62,7 @@ body {
     position: relative;
     width: 100%;
     list-style: none;
-    border-top-right-radius: 30px; /* گوشه‌ها */
-    border-bottom-right-radius: 30px; /* گوشه‌ها */
+    border-radius: 30px;
 }
 
 .navigation ul li:hover,
@@ -59,10 +70,10 @@ body {
     background-color: var(--dark-color); /* رنگ تیره در هاور */
 }
 
-.navigation ul li:nth-child(1) {
+/*.navigation ul li:nth-child(1) {
     margin-bottom: 40px;
     pointer-events: none;
-}
+}*/
 
 .navigation ul li a {
     position: relative;
@@ -84,7 +95,7 @@ body {
     min-width: 60px;
     height: 60px;
     line-height: 75px;
-    text-align: center;
+    text-align:center;
 }
 
 .navigation ul li a .icon ion-icon {
@@ -146,14 +157,6 @@ body {
     right: 80px;
 }
 
-/* تنظیم برای نمایش در صفحه نمایش کوچک */
-@media (max-width: 992px) {
-    .navbar,
-    .main {
-        width: 100%;
-        right: 0;
-    }
-}
   .topbar {
     width: 100%;
     height: 60px;
@@ -215,7 +218,7 @@ body {
   .logo img {
     position: absolute;
     top: 0;
-    right: 0;
+    margin-left: 10px;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -223,7 +226,7 @@ body {
   .main-content {
     padding-right: 20px;
     min-height: 100vh;
-    font-family: "Alexandria", sans-serif;
+    font-family: "Vazirmatn", sans-serif;
     background-color: #f9f9f4; /* رنگ پس زمینه اصلی */
 }
 
@@ -232,7 +235,7 @@ body {
     background-color: white; /* پس زمینه فرم */
     border-radius: 50px; /* تغییر شکل گوشه‌ها */
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
-    margin-top: 25px;
+    margin: 25px auto;
     transition: all 0.3s; /* انتقال نرم */
 }
 
@@ -243,7 +246,7 @@ body {
 
 .label {
     font-weight: bold;
-    color: #204a73; /* رنگ متن */
+    color: #64bedb; /* رنگ متن */
     margin-top: 25px; /* فاصله بیشتر */
     padding: 10px;
     margin-bottom: 10px;
@@ -326,12 +329,21 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .text-muted {
-    color: #999; /* رنگ متن کم‌رنگ */
+    color: #999;
+
+}
+span.text-muted{
+    color: #999;
+    font-size: larger;
+    border: double 1px #d93e5b;
+    border-radius: 10px;
+    padding: 3px;
 }
 
 h4.text-primary {
     color: #204a73; /* رنگ عنوان */
     margin: 7px 0; /* حاشیه عمودی */
+
 }
 
 h5.text-secondary {
@@ -395,4 +407,8 @@ button[type="submit"]:hover {
     transition: background-color 0.3s, transform 0.2s;
     text-decoration: none;
     font-size: x-small;
+}
+.time_ago{
+    font-size:x-small;
+    margin: 3px 0;
 }
