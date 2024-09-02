@@ -12,7 +12,8 @@ from flask import (
     request,
     session,
     url_for,
-    make_response
+    make_response,
+    abort
 )
 from flask_oauthlib.client import OAuth
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -179,7 +180,7 @@ def login_post():
             flash("Incorrect username or password.", category="error")
             return redirect(redirecting_url),401
         return redirect(redirecting_url)
-    except Exception as e:
+    except Exception:
         return "Internal server error", 500
 
 
@@ -246,7 +247,7 @@ def signup_post():
         else:
             flash("the user has been already taken with this email")
             return redirect("/signup"),401
-    except Exception as e:
+    except Exception:
         return "Internal server error",500
 
 
@@ -259,6 +260,8 @@ def posts(post_id):
 
     try:
         post = query_db("select * from Posts where post_id = ?", [post_id], one=True)
+        if post is None:
+            return render_template(f"{language}/404.html")
 
         comments = query_db(
             "select * from Comments where post_id = ? ORDER BY created_at DESC limit ? offset ?",
@@ -307,6 +310,7 @@ def posts(post_id):
 
         total_pages = (total_comments + per_page - 1) // per_page  # Total pages
     except Exception as e:
+        print(e)
         return "Internal server error",500
 
     try:
