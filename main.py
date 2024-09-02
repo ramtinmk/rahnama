@@ -119,7 +119,7 @@ app.secret_key = secrets.token_hex(16)
 
 @app.errorhandler(404)
 def not_found(error):
-    resp = make_response(render_template('persian/error.html'), 404)
+    resp = make_response(render_template('persian/404.html'), 404)
     resp.headers['X-Something'] = 'A value'
     return resp
 
