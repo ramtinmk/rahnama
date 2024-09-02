@@ -225,72 +225,160 @@ body {
     height: 100%;
     object-fit: cover;
   }
-  .main-content{
-    padding-right: 20px;
-    text-align: center;
+  :root {
+    --background-color: #f9f9f4; /* رنگ پس‌زمینه */
+    --primary-color: #64bedb; /* رنگ آبی */
+    --accent-color: #d93e5b; /* رنگ قرمز */
+    --secondary-color: #7099b8; /* رنگ ثانویه */
+    --dark-color: #204a74; /* رنگ تیره */
+}
+
+
+.main-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; /* ریسپانسیو */
     min-height: 100vh;
+    padding: 40px 20px;
     font-family: "Vazirmatn", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-  }
-  .text-container {
-    text-align: center; /* متن وسط‌چین */
-    max-width: 600px; /* حداکثر عرض برای متن */
-    margin: 0 auto; /* وسط‌چین کردن */
+}
+
+.text-container {
+    max-width: 500px; /* عرض کمتر برای زیبایی */
+    text-align: center;
+    margin: 0 auto;
 }
 
 .welcome-message {
-    font-size: 1.75rem; /* اندازه متن خوش آمدگویی */
-    color:#7099b8; /* رنگ ثانویه */
-    margin-bottom: 16px; /* فاصله زیر */
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 16px;
 }
 
-.titr {
-    font-weight: bold; /* ضخیم کردن متن */
-    font-size: 2.5rem; /* اندازه بزرگ‌تر */
-    margin-top: 20px; /* فاصله بالای عنوان */
-    color: #204a74;
-}
 
 .lead {
-    font-size: 1.25rem; /* اندازه متن توضیحات */
-    color:#7099b8; /* رنگ متن تیره */
-    margin-bottom: 24px; /* فاصله زیر */
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    margin-bottom: 24px;
+    line-height: 1.6; /* فاصله خطی برای خوانایی بهتر */
 }
 
 /* گروه دکمه‌ها */
 .button-group {
     display: flex;
-    justify-content: center; /* وسط‌چین کردن دکمه‌ها */
-    gap: 25px; /* فاصله بین دکمه‌ها */
-    margin-top: 20px; /* فاصله بالای دکمه‌ها */
+    justify-content: center;
+    gap: 20px; /* فاصله بین دکمه‌ها */
+    margin-top: 30px;
 }
 
 /* استایل دکمه‌ها */
 .btn {
-    padding: 10px 20px; /* فضای داخلی دکمه‌ها */
-    font-size: 1rem; /* اندازه فونت دکمه‌ها */
-    border-radius: 5px; /* گوشه‌های گرد */
-    text-decoration: none; /* حذف زیرخط */
-    margin-bottom: 20px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease; /* انیمیشن نرم */
 }
 
 .btn-start {
-    background-color: #dc3545; /* رنگ دکمه "Get Started" */
-    color: white; /* رنگ متن دکمه */
+    background-color: var(--accent-color);
+    color: white;
+    border: 2px solid var(--accent-color);
 }
 
 .btn-start:hover {
-    background-color: #d93e5b; /* رنگ دکمه هنگام هاور */
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 .btn-about {
-    background-color: transparent; /* پس‌زمینه شفاف */
-    border: 2px solid #d93e5b; /* حاشیه زرد */
-    color:#d93e5b; /* رنگ متن */
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
 }
 
 .btn-about:hover {
-    background-color: #d93e5b; /* رنگ دکمه هنگام هاور */
-    color:#f9f9f4; /* رنگ متن به سفید */
+    background-color: var(--accent-color);
+    color: var(--background-color);
 }
+
+/* استایل برای تصویر لوگو */
+.image-container {
+    max-width: 400px; /* محدود کردن عرض */
+    margin: 20px auto; /* وسط‌چین کردن */
+    display: flex;
+    justify-content: center;
+}
+
+.logo-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px; /* گوشه‌های گرد */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* سایه زیبا */
+    transition: transform 0.3s ease; /* انیمیشن برای تعامل */
+}
+
+.logo-image:hover {
+    transform: scale(1.05); /* افکت هاور */
+}
+.btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.05); /* تغییر اندازه هنگام هاور */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* سایه بیشتر */
+    transition: all 0.3s ease; /* انتقال نرم */
+}
+
+.image-container:hover .logo-image {
+    transform: rotate(5deg); /* چرخش تصویر هنگام هاور */
+    transition: transform 0.3s ease;
+}
+.titr {
+    font-size: 3rem; /* اندازه فونت بزرگ */
+    font-weight: bold; /* ضخیم کردن متن */
+    color: var(--primary-color); /* رنگ اصلی */
+    text-align: center; /* وسط‌چین کردن متن */
+    position: relative; /* برای استفاده از المان‌های شبه */
+    margin: 50px 0; /* فاصله اطراف */
+    overflow: hidden; /* پنهان کردن المان‌های خارج از حاشیه */
+    cursor: pointer; /* نشانگر ماوس تغییر کند */
+    transition: color 0.5s ease; /* انتقال نرم رنگ */
+    font-style: italic;
+}
+
+.titr::before, .titr::after {
+    content: "راه‌نما"; /* محتوای المان شبه */
+    position: absolute; /* موقعیت مطلق */
+    top: 0; /* موقعیت بالا */
+    left: 0; /* موقعیت چپ */
+    width: 100%; /* عرض کامل */
+    height: 100%; /* ارتفاع کامل */
+    color: var(--accent-color); /* رنگ متنی دیگر */
+    overflow: hidden; /* پنهان کردن المان‌های خارج از حاشیه */
+    transition: transform 0.5s ease; /* انتقال نرم تغییر */
+}
+
+.titr::before {
+    z-index: -1; /* لایه زیرین */
+    transform: translateX(-100%); /* جابجایی به سمت چپ */
+}
+
+.titr::after {
+    z-index: -1; /* لایه زیرین */
+    transform: translateX(100%); /* جابجایی به سمت راست */
+}
+
+.titr:hover::before {
+    transform: translateX(0); /* بازگشت به موقعیت اولیه */
+}
+
+.titr:hover::after {
+    transform: translateX(0); /* بازگشت به موقعیت اولیه */
+}
+
+.titr:hover {
+    color: var(--dark-color); /* تغییر رنگ در هنگام هاور */
+}
+

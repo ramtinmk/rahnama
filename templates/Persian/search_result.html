@@ -11,51 +11,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
     </style>
-     <script>
-        function submitForm() {
-    // Get form data
-    const title = document.getElementById('title').value;
-    const body = document.getElementById('body').value;
-    const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim());
-
-
-    // Create a JSON object
-    const data = {
-        title: title,
-        body: body,
-        tags: tags
-    };
-
-
-    // Send data to the Flask backend using fetch API
-    fetch('/save_post', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); // Parse the JSON response
-    })
-    .then(data => {
-        if (data.post_id) {
-            // Redirect to the new post URL
-            window.location.href = `/posts/${data.post_id}`;
-        } else {
-            console.error('Failed to create post:', data.error);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-
-    </script>
 </head>
 <body>
     <div class="container">
@@ -99,7 +54,7 @@
                 </li>
                 {% endif %}
 
-                {% if is_logged %}
+              
                 <li>
                     <a href="/yourprofile">
                         <span class="icon">
@@ -132,7 +87,7 @@
                         <span class="title"> پیام های جدید</span>
                     </a>
                 </li>
-            {% endif %}
+      
                 <li>
                     <a href="/questions">
                         <span class="icon">
@@ -154,7 +109,7 @@
             <div class="search" action="/search">
                 <label>
                     <input type="text" placeholder="Search here">
-                    <ion-icon name="search-outline"></ion-icon>
+                    <ion-icon name="search-outline" ></ion-icon>
                 </label>
             </div>
 
@@ -163,26 +118,15 @@
               </div>
     </div>
     <div class="main-content">
-        {% if is_logged %}
-        <div class="profile-section">
-            <h2>پروفایل</h2>
-            <form method="POST" action="/profile/update">
-                <div class="form-group">
-                    <label for="username"><strong>نام کاربری:</strong></label>
-                    <input type="text" id="username" name="username" value="{{ username }}">
-                </div>
-                <div class="form-group">
-                    <label for="email"><strong>ایمیل:</strong></label>
-                    <input type="email" id="email" name="email" value="{{ email }}">
-                </div>
-                <button type="submit" class="submit-btn">به‌روزرسانی پروفایل</button>
-            </form>
-        </div>
-        {% else %}
-        <p>لطفا وارد شوید تا اطلاعات پروفایل خود را ببینید.</p>
-        {% endif %}
-        
+        <h1>search results</h1>
 
+    <div class="posts">
+        <ul>
+        {% for post in posts %}
+            <li><a href="/posts/{{post.post_id}}">{{post.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
     </div>
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
