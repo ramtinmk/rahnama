@@ -56,6 +56,7 @@ body {
     top: 0;
     right: 0; /* راست چین */
     width: 100%;
+    font-family: "Vazirmatn", sans-serif !important;
 }
 
 .navigation ul li {
@@ -226,7 +227,7 @@ body {
   .main-content {
     padding-right: 20px;
     min-height: 100vh;
-    font-family: "Vazirmatn", sans-serif;
+    font-family: "Vazirmatn", sans-serif !important;
     background-color: #f9f9f4; /* رنگ پس زمینه اصلی */
 }
 
@@ -261,6 +262,7 @@ button[type="button"] {
     font-size: 16px; /* اندازه فونت */
     cursor: pointer; /* تغییر نشانگر */
     transition: background-color 0.2s, transform 0.2s; /* برای انیمیشن */
+    font-family: "Vazirmatn", sans-serif !important;
 }
 
 button[type="button"]:hover {
@@ -268,18 +270,19 @@ button[type="button"]:hover {
     transform: translateY(-2px); /* حرکت کمی به بالا */
 }
 
-input[type="text"], textarea {
+ .box{
     width: 100%;
     padding: 10px;
-    border: 1px solid #7099b8; /* حاشیه خاکستری */
-    border-radius:15px; /* گوشه‌های گرد */
+    border: 1px double #999; /* حاشیه خاکستری */
+    border-radius:10px; /* گوشه‌های گرد */
     margin-bottom: 25px;
     transition: border-color 0.3s; /* انتقال نرم */
 }
 
-input[type="text"]:focus, textarea:focus {
-    border-color: #64bedb; /* رنگ کادر روی فوکوس */
+.box:focus {
+    border-color: #64bedb; /* رنگ کادر روی فکوس */
     outline: none; /* حذف کادر */
+    transform: translateY(-2px);
 }
 
 .titr {

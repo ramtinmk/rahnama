@@ -7,7 +7,7 @@
     <link href="../../static/css/persian/Q&A.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
     </style>
@@ -99,7 +99,7 @@
                 </li>
                 {% endif %}
 
-                {% if is_logged %}
+              
                 <li>
                     <a href="/yourprofile">
                         <span class="icon">
@@ -132,7 +132,7 @@
                         <span class="title"> پیام های جدید</span>
                     </a>
                 </li>
-            {% endif %}
+       
                 <li>
                     <a href="/questions">
                         <span class="icon">
@@ -159,21 +159,21 @@
             </div>
 
             <div class="logo">
-                <img src="../../static/images/logo.png.png" alt="">
-            </div>
+                <a href="/home">  <img src="../../static/images/logo.png.png" alt=""></a>
+              </div>
     </div>
     <div class="main-content">
         <div class="question">
              <h2 class="titr">سوالات خود را اینجا بپرسید</h2>
                 <form id="myForm"  action="/posts">
-                     <label class="label" for="title">عنوان:</label><br><br>
-                     <input type="text" id="title" name="title" required>
+                     <label class="label" for="title">عنوان:</label><br>
+                     <input class="box" type="text" id="title" name="title" required>
 
-                     <label class="label" for="body">متن پرسش:</label><br><br>
-                    <textarea id="body" name="body" required></textarea>
+                     <label class="label" for="body">متن پرسش:</label><br>
+                    <textarea  class="box" id="body" name="body" required></textarea>
 
-                    <label  class="label" for="tags">برچسب‌ها (با ویرگول جدا شوند):</label><br><br>
-                    <input type="text" id="tags" name="tags">
+                    <label  class="label" for="tags">برچسب‌ها (با ویرگول جدا شوند):</label><br>
+                    <input   class="box" type="text" id="tags" name="tags">
 
                      <button type="button" onclick="submitForm()" >ارسال</button>
                 </form>
