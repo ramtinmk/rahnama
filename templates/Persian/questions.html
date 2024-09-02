@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حل مسأله - Solve It Place</title>
-    <link href="../../static/css/persian/main.css" rel="stylesheet">
+    <link href="../../static/css/persian/questions.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
     </style>
@@ -118,21 +118,20 @@
             </div>
     </div>
     <div class="main-content">
-        <div class="text-container">
-            {% if is_logged %}
-            <h1 class="welcome-message">خوش آمدید {{username}}</h1>
-            {% endif %}
-            <h1 class="titr">راه نما</h1>
-            <p class="lead">پلتفرم اصلی شما برای پرسیدن سوال و به اشتراک گذاری پاسخ ها در یک جامعه پر جنب و جوش! همانطور که مشکلات را با هم حل می کنید، سریع ارتباط برقرار کنید. امروز به ما بپیوندید تا قدرت دانش جمعی را بدست بیاورید!</p>
-            <div class="button-group">
-                <a class="btn btn-start" href="/ask/question">بزن بریم</a>
-                <a class="btn btn-about" href="/login">ورود</a>
+        <div id="main-content">
+            <h1>در اینجا میتوانید پرسش و پاسخ ها را مشاهده کنید</h1>
+            <h4>کلیک کنید تا به صفحه سوال بروید</h4>
+            <div class="posts">
+            <ul>
+                {% for post in posts %}
+                   <li>
+                    <a href="/posts/{{post.post_id}}">{{post.title}} ({{post.time_ago}})</a>
+                   </li> 
+                {% endfor %}
+                </ul>
             </div>
         </div>
-        <div class="image-container">
-            <img class="logo-image" src="../../static/images/logo.png.png" alt="Solve It Place Logo" />
-        </div>  
-        </div>
+    </div>
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
