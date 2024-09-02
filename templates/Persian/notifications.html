@@ -4,13 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حل مسأله - Solve It Place</title>
-    <link href="../../static/css/persian/main.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
-    </style>
+    <link href="../../static/css/persian/questions.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -54,7 +48,7 @@
                 </li>
                 {% endif %}
 
-                {% if is_logged %}
+              
                 <li>
                     <a href="/yourprofile">
                         <span class="icon">
@@ -87,7 +81,7 @@
                         <span class="title"> پیام های جدید</span>
                     </a>
                 </li>
-            {% endif %}
+      
                 <li>
                     <a href="/questions">
                         <span class="icon">
@@ -108,32 +102,31 @@
 
             <div class="search" action="/search">
                 <label>
-                    <input type="text" placeholder="جست و جو">
-                   <button type="submit"  action="/search" ><ion-icon name="search-outline"></ion-icon></button> 
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline" ></ion-icon>
                 </label>
             </div>
 
             <div class="logo">
-              <a href="/home">  <img src="../../static/images/logo.png.png" alt=""></a>
-            </div>
+                <a href="/home">  <img src="../../static/images/logo.png.png" alt=""></a>
+              </div>
     </div>
     <div class="main-content">
-        <div class="text-container">
-            {% if is_logged %}
-            <h1 class="welcome-message">خوش آمدید {{username}}</h1>
+        <div id="main-content">        
+            <h1 class="title">پیام های جدید شما</h1>
+        <ul class="post">
+        {% for nott in notifs %}
+            {% if nott["kind"] == "upvote" %}
+            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} upvoted your <a href="/posts/{{ nott["post_id"] }}" >post</a>  ({{nott["time_ago"]}})</li>
             {% endif %}
-            <h1 class="titr">راهنما</h1>
-            <p class="lead">پلتفرم اصلی شما برای پرسیدن سوال و به اشتراک گذاری پاسخ ها در یک جامعه پر جنب و جوش! همانطور که مشکلات را با هم حل می کنید، سریع ارتباط برقرار کنید. امروز به ما بپیوندید تا قدرت دانش جمعی را بدست بیاورید!</p>
-            <div class="button-group">
-                <a class="btn btn-start" href="/ask/question">بزن بریم</a>
-                <a class="btn btn-about" href="/login">ورود</a>
-            </div>
-        </div>
-        <div class="image-container">
-            <img class="logo-image" src="../../static/images/logo.png.png" alt="Solve It Place Logo" />
-        </div>
+            {% if nott["kind"] == "view" %}
+            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} viewed your <a href="/posts/{{ nott["post_id"] }}" >post</a>  ({{nott["time_ago"]}})</li>
+            {% endif %}            
+        {% endfor %}
+        </ul>
     </div>
-    
+
+    </div>
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

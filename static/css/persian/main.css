@@ -57,7 +57,7 @@ body {
     top: 0;
     right: 0; /* راست چین */
     width: 100%;
-    font-family: "Vazirmatn", sans-serif;
+    font-family: "Vazirmatn", sans-serif !important
 }
 
 .navigation ul li {
