@@ -315,6 +315,7 @@ button[type="button"]:hover {
     margin: 0 10px; /* حاشیه مجدد */
     display: flex;
     align-items: center; /* تراز عمودی */
+
 }
 
 .votings i {
@@ -336,9 +337,10 @@ button[type="button"]:hover {
 
 }
 span.text-muted{
-    color: #999;
+    background-color:#d93e5b;
+    opacity: 0.9;
+    color: #f9f9f4;
     font-size: larger;
-    border: double 1px #d93e5b;
     border-radius: 10px;
     padding: 3px;
 }
@@ -346,6 +348,8 @@ span.text-muted{
 h4.text-primary {
     color: #204a73; /* رنگ عنوان */
     margin: 7px 0; /* حاشیه عمودی */
+
+    font-weight: bolder;
 
 }
 
@@ -357,6 +361,7 @@ h5.text-secondary {
 h6.text-muted {
     color: #7099b8; /* رنگ متن اصلی */
     margin: 4px 0; /* حاشیه عمودی */
+    font-size: x-large;
 }
 
 .alert {

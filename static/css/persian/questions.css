@@ -235,20 +235,27 @@ body {
     background-color: #f9f9f4; /* رنگ پس زمینه اصلی */
 }
 
-#main-content {
-    padding: 40px;
-    margin: auto;
-    max-width: 800px;
-    border-radius: 10px;
-    background-color: #ffffff; /* رنگ پس‌زمینه محتوا */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+
 
 h1 {
     color: #d93e5b; /* رنگ عنوان */
     margin-bottom: 20px;
+    text-align: center;
+}
+.box{
+    padding: 30px; /* افزایش حاشیه */
+    background-color: white; /* پس زمینه فرم */
+    border-radius: 50px; /* تغییر شکل گوشه‌ها */
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
+    margin: 25px auto;
+    transition: all 0.3s; /* انتقال نرم */
+    width: 80%;
 }
 
+.box:hover {
+    transform: scale(1.02); /* بزرگ کردن فرم هنگام هاور */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر هنگام هاور */
+}
 .posts ul {
     list-style-type: none; /* حذف لیست نقطه‌ای */
     padding: 0;
@@ -256,6 +263,7 @@ h1 {
 
 .posts li {
     margin: 10px 0; /* فاصله بین آیتم‌ها */
+    list-style-type: none; 
 }
 
 .posts a {

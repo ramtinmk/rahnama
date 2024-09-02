@@ -112,19 +112,21 @@
               </div>
     </div>
     <div class="main-content">
-        <div id="main-content">        
-            <h1 class="title">پیام های جدید شما</h1>
-        <ul class="post">
-        {% for nott in notifs %}
-            {% if nott["kind"] == "upvote" %}
-            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} upvoted your <a href="/posts/{{ nott["post_id"] }}" >post</a>  ({{nott["time_ago"]}})</li>
-            {% endif %}
-            {% if nott["kind"] == "view" %}
-            <li class="list-group-item list-group-item-action question">{{nott["from_username"] }} viewed your <a href="/posts/{{ nott["post_id"] }}" >post</a>  ({{nott["time_ago"]}})</li>
-            {% endif %}            
-        {% endfor %}
-        </ul>
-    </div>
+        <div class="box" >        
+            <h1 class="title">پیام‌های جدید شما</h1>
+            <h4 style="color: #204a73;">کلیک کنید تا به صفحه سوال بروید</h4>
+            <ul class="posts">
+                {% for nott in notifs %}
+                    {% if nott["kind"] == "upvote" %}
+                    <li>{{ nott["from_username"] }} پست شما را <a href="/posts/{{ nott["post_id"] }}">پسندید</a> ({{ nott["time_ago"] }})</li>
+                    {% endif %}
+                    {% if nott["kind"] == "view" %}
+                    <li>{{ nott["from_username"] }} پست شما را <a href="/posts/{{ nott["post_id"] }}">مشاهده کرد</a> ({{ nott["time_ago"] }})</li>
+                    {% endif %}            
+                {% endfor %}
+            </ul>
+        </div>
+        
 
     </div>
     
