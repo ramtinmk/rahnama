@@ -272,7 +272,7 @@ def posts(post_id):
             return render_template(f"{language}/404.html")
 
         comments = query_db(
-            "select * from Comments where post_id = ? ORDER BY created_at DESC limit ? offset ?",
+            "select * from Comments where post_id = ? ORDER BY created_at DESC",
             [post_id, per_page, offset],
         )
 
@@ -413,7 +413,7 @@ def questions():
     db = get_db()
     cursor = db.cursor()
     posts = cursor.execute(
-        "SELECT * FROM Posts ORDER BY created_at DESC LIMIT ? OFFSET ?",
+        "SELECT * FROM Posts ORDER BY created_at DESC",
         (per_page, offset),
     ).fetchall()
 
