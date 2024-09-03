@@ -118,11 +118,14 @@
             <ul class="posts">
                 {% for nott in notifs %}
                     {% if nott["kind"] == "upvote" %}
-                    <li>{{ nott["from_username"] }} پست شما را <a href="/posts/{{ nott["post_id"] }}">پسندید</a> ({{ nott["time_ago"] }})</li>
+                    <li><a href="/posts/{{ nott["post_id"] }}">{{ nott["from_username"] }} پست شما را پسندید ({{ nott["time_ago"] }})</a></li>
                     {% endif %}
                     {% if nott["kind"] == "view" %}
-                    <li>{{ nott["from_username"] }} پست شما را <a href="/posts/{{ nott["post_id"] }}">مشاهده کرد</a> ({{ nott["time_ago"] }})</li>
-                    {% endif %}            
+                    <li><a href="/posts/{{ nott["post_id"] }}"{{ nott["from_username"] }}> پست شما را >مشاهده کرد ({{ nott["time_ago"] }}) </a></li>
+                    {% endif %}      
+                    {% if nott["kind"] == "comment" %}
+                    <li><a href="/posts/{{ nott["post_id"] }}">{{ nott["from_username"] }} پست شما را پاسخ ({{ nott["time_ago"] }}) </a></li>
+                    {% endif %}           
                 {% endfor %}
             </ul>
         </div>

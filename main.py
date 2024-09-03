@@ -638,6 +638,7 @@ def comment_post():
     db = get_db()
     cursor = db.cursor()
     comment_data = request.json
+    to_username = comment_data["username"]
     username = session["username"]
     user_id = query_db(
         "select user_id from Users where username = ?", [username], one=True
@@ -650,6 +651,9 @@ def comment_post():
             "INSERT INTO Comments  (post_id,user_id,body) VALUES (?,?,?);",
             (post_id, user_id, comment_body),
         )
+        db.commit()
+       
+        cursor.execute("INSERT INTO notifications (from_username,to_username,kind,post_id) VALUES (?,?,?,?);",(username,to_username,"comment",post_id))
         db.commit()
     except sqlite3.Error as e:
         print(e)
