@@ -153,7 +153,8 @@ def home():
             username = session["username"]
     app.logger.info("the user ramtin is in home")
 
-    return render_template(f"{language}/home.html", is_logged=is_logged, username=username)
+    unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username],one=True)["count"]
+    return render_template(f"{language}/home.html", is_logged=is_logged, username=username,unseen_number=unseen_number)
 
 
 @app.route("/login")
@@ -559,7 +560,10 @@ def notifications():
 
     for nott in notifs:
         nott["time_ago"] = time_ago(nott["created_at"])
-    print(notifs)
+
+
+    result = query_db("UPDATE notifications SET seen = 1  where to_username = ?;",[username])
+    print(result)
     return render_template(f"{language}/notifications.html", notifs=notifs, is_logged=is_logged)
 
 
