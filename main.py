@@ -94,6 +94,7 @@ def time_ago(datetime_str):
     # محاسبه‌ی اختلاف برحسب ثانیه
     seconds = time_difference.total_seconds()
 
+    print(seconds)
     # تبدیل ثانیه به دقیقه، ساعت، روز و غیره
     if seconds < 60:
         return f"{int(seconds)} ثانیه پیش"
