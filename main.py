@@ -443,7 +443,9 @@ def myquestions():
         "SELECT user_id FROM Users WHERE username = ?", [username], one=True
     )["user_id"]
 
-    my_posts = query_db("SELECT * from Posts WHERE user_id = ?", args=[user_id])
+    my_posts = query_db("SELECT * from Posts WHERE user_id = ? ORDER BY created_at DESC", args=[user_id])
+    for post in my_posts:
+        post["time_ago"] = time_ago(post["created_at"])
     unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username],one=True)["count"]
     return render_template(f"{language}/myquestions.html", posts=my_posts,is_logged=is_logged,unseen_number=unseen_number)
 
