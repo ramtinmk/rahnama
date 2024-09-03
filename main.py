@@ -15,6 +15,7 @@ from flask import (
     make_response,
     abort
 )
+from urllib.parse import urlparse
 from flask_oauthlib.client import OAuth
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -122,9 +123,10 @@ app.secret_key = secrets.token_hex(16)
 
 @app.errorhandler(404)
 def not_found(error):
-    previous_page = request.headers.get("Referer")
-    resp = make_response(render_template('persian/404.html',previous_page=previous_page), 404)
+    
+    resp = make_response(render_template('persian/404.html'), 404)
     resp.headers['X-Something'] = 'A value'
+    
     return resp
 
 
