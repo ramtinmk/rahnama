@@ -273,7 +273,7 @@ def posts(post_id):
 
         comments = query_db(
             "select * from Comments where post_id = ? ORDER BY created_at DESC",
-            [post_id, per_page, offset],
+            [post_id],
         )
 
         for comment in comments:
@@ -413,8 +413,7 @@ def questions():
     db = get_db()
     cursor = db.cursor()
     posts = cursor.execute(
-        "SELECT * FROM Posts ORDER BY created_at DESC",
-        (per_page, offset),
+        "SELECT * FROM Posts ORDER BY created_at DESC"
     ).fetchall()
 
     # Get the total number of posts to calculate total pages
