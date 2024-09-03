@@ -25,6 +25,7 @@ from database_utils import *
 
 app = Flask(__name__)
 
+port = 5000
 language = "persian"
 
 
@@ -121,7 +122,8 @@ app.secret_key = secrets.token_hex(16)
 
 @app.errorhandler(404)
 def not_found(error):
-    resp = make_response(render_template('persian/404.html'), 404)
+    previous_page = request.headers.get("Referer")
+    resp = make_response(render_template('persian/404.html',previous_page=previous_page), 404)
     resp.headers['X-Something'] = 'A value'
     return resp
 
@@ -154,6 +156,8 @@ def home():
 
 @app.route("/login")
 def login():
+    previous_page = request.headers.get("Referer")
+    print(previous_page.split(f"{port}")[-1])
     return render_template(f"{language}/login.html")
 
 
@@ -426,7 +430,7 @@ def myquestions():
     username = session["username"]
 
     is_logged = check_is_logged()
-    
+
     user_id = query_db(
         "SELECT user_id FROM Users WHERE username = ?", [username], one=True
     )["user_id"]
@@ -677,4 +681,4 @@ def get_google_oauth_token():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    app.run(port=port,debug=True, use_reloader=True)
