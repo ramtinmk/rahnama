@@ -423,6 +423,7 @@ def questions():
     for post in posts:
         post["time_ago"] = time_ago(post["created_at"])
     # Render the template and pass the posts, current page, and total pages
+
     return render_template(
         f"{language}/questions.html", posts=posts, page=page, total_pages=total_pages
     )
@@ -439,8 +440,8 @@ def myquestions():
     )["user_id"]
 
     my_posts = query_db("SELECT * from Posts WHERE user_id = ?", args=[user_id])
-
-    return render_template(f"{language}/myquestions.html", posts=my_posts,is_logged=is_logged)
+    unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username],one=True)["count"]
+    return render_template(f"{language}/myquestions.html", posts=my_posts,is_logged=is_logged,unseen_number=unseen_number)
 
 
 @app.route("/upvote", methods=["POST"])
@@ -590,8 +591,9 @@ def yourprofile():
         )["email"]
         is_logged = True
 
+    unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username],one=True)["count"]
     return render_template(
-        f"{language}/myprofile.html", username=username, email=email, is_logged=is_logged
+        f"{language}/myprofile.html", username=username, email=email, is_logged=is_logged,unseen_number=unseen_number
     )
 
 
