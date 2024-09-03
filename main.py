@@ -78,38 +78,39 @@ def is_valid_email(email: str) -> bool:
 
 
 def time_ago(datetime_str):
-    # Convert the datetime string to a datetime object
+    # تبدیل رشته‌ی تاریخ و زمان به شیء datetime
     past_time = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S") + timedelta(
         hours=3, minutes=30
     )
 
-    # Get the current time
+    # گرفتن زمان فعلی
     now = datetime.now()
 
-    # Calculate the difference
+    # محاسبه‌ی اختلاف زمان
     time_difference = now - past_time
 
-    # Calculate the seconds difference
+    # محاسبه‌ی اختلاف برحسب ثانیه
     seconds = time_difference.total_seconds()
 
-    # Convert seconds to minutes, hours, days, etc.
+    # تبدیل ثانیه به دقیقه، ساعت، روز و غیره
     if seconds < 60:
-        return f"{int(seconds)} seconds ago"
+        return f"{int(seconds)} ثانیه پیش"
     elif seconds < 3600:
         minutes = seconds // 60
-        return f"{int(minutes)} minutes ago"
+        return f"{int(minutes)} دقیقه پیش"
     elif seconds < 86400:
         hours = seconds // 3600
-        return f"{int(hours)} hours ago"
+        return f"{int(hours)} ساعت پیش"
     elif seconds < 2592000:
         days = seconds // 86400
-        return f"{int(days)} days ago"
+        return f"{int(days)} روز پیش"
     elif seconds < 31536000:
         months = seconds // 2592000
-        return f"{int(months)} months ago"
+        return f"{int(months)} ماه پیش"
     else:
         years = seconds // 31536000
-        return f"{int(years)} years ago"
+        return f"{int(years)} سال پیش"
+
 
 
 def check_is_logged():
@@ -424,13 +425,15 @@ def questions():
 def myquestions():
     username = session["username"]
 
+    is_logged = check_is_logged()
+    
     user_id = query_db(
         "SELECT user_id FROM Users WHERE username = ?", [username], one=True
     )["user_id"]
 
     my_posts = query_db("SELECT * from Posts WHERE user_id = ?", args=[user_id])
 
-    return render_template(f"{language}/myquestions.html", posts=my_posts)
+    return render_template(f"{language}/myquestions.html", posts=my_posts,is_logged=is_logged)
 
 
 @app.route("/upvote", methods=["POST"])
