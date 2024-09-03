@@ -400,6 +400,7 @@ def save_post():
 
 @app.route("/questions")
 def questions():
+    is_logged = check_is_logged()
     # Get the current page number, default to 1 if not provided
     page = request.args.get("page", 1, type=int)
     per_page = 5  # Number of items to show per page
@@ -425,7 +426,7 @@ def questions():
     # Render the template and pass the posts, current page, and total pages
 
     return render_template(
-        f"{language}/questions.html", posts=posts, page=page, total_pages=total_pages
+        f"{language}/questions.html", posts=posts, page=page, total_pages=total_pages,is_logged=is_logged
     )
 
 

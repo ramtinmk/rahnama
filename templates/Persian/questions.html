@@ -54,7 +54,7 @@
                 </li>
                 {% endif %}
 
-              
+              {% if is_logged %}
                 <li>
                     <a href="/yourprofile">
                         <span class="icon">
@@ -83,11 +83,12 @@
                     <a href="/notifications">
                         <span class="icon">
                             <ion-icon name="notifications-outline"></ion-icon>
+                            
                         </span>
-                        <span class="title">{% if unseen_number!=0 %}<span class="unseen">{{unseen_number }}</span> {% endif %}پیام های جدید</span>
+                        <span class="title">پیام های جدید</span>
                     </a>
                 </li>
-      
+                {% endif %}
                 <li>
                     <a href="/questions">
                         <span class="icon">
