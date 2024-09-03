@@ -237,10 +237,12 @@
                             <span class="bdge" style="margin-right: 5px;"></span>
                             <span class="time_ago">{{post["time_ago"]}}</span> 
                         </div>
+                        {% if session["username"] == username %}
                         <div class="alert alert-secondary mb-1" style="background-color: #f1f1f1; padding: 10px; border-radius: 5px;">
                             <strong></strong>  <br>
-                         <a href="" class="delete" > حذف سوال</a> {% endif %}
+                         <a href="/delete-post/{{ post.post_id}}" class="delete" > حذف سوال</a> 
                         </div>
+                        {% endif %} 
                         <span>بازدیدها: {{views}}</span>
                     </div>
                 </div>
