@@ -336,16 +336,17 @@ body {
     transition: transform 0.3s ease;
 }
 .titr {
-    font-size: 3rem; /* اندازه فونت بزرگ */
+    font-size: 3.5rem; /* اندازه فونت بزرگ */
     font-weight: bold; /* ضخیم کردن متن */
     color: var(--primary-color); /* رنگ اصلی */
     text-align: center; /* وسط‌چین کردن متن */
     position: relative; /* برای استفاده از المان‌های شبه */
-    margin: 50px 0; /* فاصله اطراف */
+    margin: 10px 0; /* فاصله اطراف */
     overflow: hidden; /* پنهان کردن المان‌های خارج از حاشیه */
     cursor: pointer; /* نشانگر ماوس تغییر کند */
     transition: color 0.5s ease; /* انتقال نرم رنگ */
     font-style: italic;
+    border-bottom: 3px solid #d93e5b ;
 }
 
 .titr::before, .titr::after {
@@ -368,6 +369,7 @@ body {
 .titr::after {
     z-index: -1; /* لایه زیرین */
     transform: translateX(100%); /* جابجایی به سمت راست */
+    transition: all 0.3s ease;
 }
 
 .titr:hover::before {
@@ -376,9 +378,12 @@ body {
 
 .titr:hover::after {
     transform: translateX(0); /* بازگشت به موقعیت اولیه */
+    transition: all 0.3s ease;
 }
 
 .titr:hover {
-    color: var(--dark-color); /* تغییر رنگ در هنگام هاور */
+    color: var(--accent-color); 
+    font-size:3.5rem;
+    transition: all 0.5s ease;
 }
 

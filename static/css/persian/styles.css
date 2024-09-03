@@ -12,6 +12,7 @@ body {
   align-items: center;
   background:#FFFFFF;
   min-height: 100vh;
+  direction: rtl;
 }
 .box {
   position: relative;
@@ -112,6 +113,7 @@ body {
   position: relative;
   width: 300px;
   margin-top: 35px; 
+  text-align: right;
 }
 .box form .inputbox input{
   position: relative;
@@ -126,22 +128,25 @@ body {
   letter-spacing: 0.05em;
   transition: 0.5s;
   z-index: 10;
+  text-align: right;
 }
 .box form .inputbox span{
   position: absolute;
-  left: 0;
+  right: 0;
   padding: 20px 0px 10px;
   pointer-events: none;
   color: #0D47A1;
   font-size: 1em;
   letter-spacing: 0.05em; 
   transition: 0.5s;
+  direction: rtl;
 }
 .box form .inputbox input:valid ~span,
 .box form .inputbox input:focus ~span{
   color: #0D47A1;
   font-size: 0.75em;
   transform: translateY(-34px);
+  text-align: right;
 }
 .box form .inputbox i{
   position: absolute;
