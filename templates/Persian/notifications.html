@@ -122,7 +122,10 @@
                     {% endif %}
                     {% if nott["kind"] == "view" %}
                     <li>{{ nott["from_username"] }} پست شما را <a href="/posts/{{ nott["post_id"] }}">مشاهده کرد</a> ({{ nott["time_ago"] }})</li>
-                    {% endif %}            
+                    {% endif %}      
+                    {% if nott["kind"] == "comment" %}
+                    <li>{{ nott["from_username"] }} پست شما را <a href="/posts/{{ nott["post_id"] }}">پاسخ داد</a> ({{ nott["time_ago"] }})</li>
+                    {% endif %}           
                 {% endfor %}
             </ul>
         </div>

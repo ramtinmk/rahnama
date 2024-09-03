@@ -88,10 +88,12 @@
 
         const comment_body = document.getElementById("comment").value;
         const post_id = {{post.post_id}};
+        const username = {{username}};
 
         data = {"body":comment_body,
-                "post_id": post_id
-        }
+                "post_id": post_id,
+                "username":username,
+        };
 
         fetch('/comment-post', {
             method: 'POST',
