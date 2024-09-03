@@ -337,7 +337,7 @@ button[type="button"]:hover {
 
 }
 span.text-muted{
-    background-color:#d93e5b;
+    background-color:#64bedb;
     opacity: 0.9;
     color: #f9f9f4;
     font-size: larger;
@@ -415,8 +415,13 @@ button[type="submit"]:hover {
     transition: background-color 0.3s, transform 0.2s;
     text-decoration: none;
     font-size: x-small;
+    padding: 2px;
+    margin-bottom: 10px;
 }
 .time_ago{
-    font-size:x-small;
-    margin: 3px 0;
+    font-size:small;
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    
 }

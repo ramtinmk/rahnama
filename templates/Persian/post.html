@@ -228,7 +228,7 @@
                     </div>
                     <div style="margin-left: 15px; flex-grow: 1;">
                         <div class="post-title">
-                            <span class="text-muted">{{username}}</span> :
+                            <span class="text-muted">{{username}}</span> 
                             <h4 class="text-primary mb-1">{{post.title}}</h4>
                             <h5 class="text-secondary mb-2">{{post.tags}}</h5>
                             <h6 class="text-muted mb-3">{{post.body}}</h6>
@@ -236,12 +236,12 @@
                         <div style="display: flex; align-items: center;">
                             <span class="bdge" style="margin-right: 5px;"></span>
                             <span class="time_ago">{{post["time_ago"]}}</span> 
+                            <a href="/delete-post/{{ post.post_id}}" class="delete" > حذف سوال</a>
                         </div>
                         {% if session["username"] == username %}
-                        <div class="alert alert-secondary mb-1" style="background-color: #f1f1f1; padding: 10px; border-radius: 5px;">
-                            <strong></strong>  <br>
-                         <a href="/delete-post/{{ post.post_id}}" class="delete" > حذف سوال</a> 
-                        </div>
+                              
+                          
+                        
                         {% endif %} 
                         <span>بازدیدها: {{views}}</span>
                     </div>
@@ -253,7 +253,7 @@
                         {% for comment in comments %}
                         <div class="alert alert-secondary mb-1" style="background-color: #f1f1f1; padding: 10px; border-radius: 5px;">
                             <strong>{{comment.username}}:</strong> {{comment.body}} <br>
-                            ({{comment.time_ago}}) {% if comment.username == session["username"] %} <a href="/delete-comment/{{comment.comment_id}}" class="delete" >حذف</a> {% endif %}
+                          <span class="time_ago">  ({{comment.time_ago}}) </span>{% if comment.username == session["username"] %} <a href="/delete-comment/{{comment.comment_id}}" class="delete" >حذف</a> {% endif %}
                         </div>
                         {% endfor %}
                     </div>
