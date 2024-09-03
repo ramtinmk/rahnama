@@ -1,9 +1,9 @@
 :root {
-    --background-color: #f9f9f4; /* رنگ پس‌زمینه */
-    --primary-color: #64bedb; /* رنگ آبی */
-    --accent-color: #d93e5b; /* رنگ قرمز */
-    --secondary-color: #7099b8; /* رنگ ثانویه */
-    --dark-color: #204a74; /* رنگ تیره */
+    --background-color: #f9f9f4;
+    --primary-color: #64bedb;
+    --accent-color: #d93e5b;
+    --secondary-color: #7099b8;
+    --dark-color: #204a74;
 }
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
 
@@ -24,7 +24,7 @@
 body {
     min-height:100vh;
     overflow-x: hidden;
-    background-color: var(--background-color); /* پس‌زمینه */
+    background-color: var(--background-color);
     box-sizing: border-box;
     }
     
@@ -33,16 +33,16 @@ body {
     position: relative;
     width: 100%;
         display: flex;
-    flex-direction: column; /* برای تنظیمات عمودی */
-    align-items: flex-start; /* برای راست‌چین کردن */
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-/* =============== Navigation ================ */
+
 .navigation {
     position: fixed;
     width: 300px;
     height: 100%;
-    background: var(--primary-color); /* رنگ آبی */
+    background: var(--primary-color);
     border-right: 15px solid var(--primary-color);
     transition: 0.5s;
     overflow: hidden;
@@ -54,7 +54,7 @@ body {
 .navigation ul {
     position: absolute;
     top: 0;
-    right: 0; /* راست چین */
+    right: 0;
     width: 100%;
     font-family: "Vazirmatn", sans-serif !important;
 }
@@ -68,13 +68,10 @@ body {
 
 .navigation ul li:hover,
 .navigation ul li.hovered {
-    background-color: var(--dark-color); /* رنگ تیره در هاور */
+    background-color: var(--dark-color);
 }
 
-/*.navigation ul li:nth-child(1) {
-    margin-bottom: 40px;
-    pointer-events: none;
-}*/
+
 
 .navigation ul li a {
     position: relative;
@@ -82,12 +79,12 @@ body {
     width: 100%;
     display: flex;
     text-decoration: none;
-    color: var(--background-color); /* رنگ متن */
+    color: var(--background-color);
 }
 
 .navigation ul li:hover a,
 .navigation ul li.hovered a {
-    color: var(--primary-color); /* رنگ آبی در هاور */
+    color: var(--primary-color);
 }
 
 .navigation ul li a .icon {
@@ -113,7 +110,7 @@ body {
     white-space: nowrap;
 }
 
-/* --------- curve outside ---------- */
+
 .navigation ul li:hover a::before,
 .navigation ul li.hovered a::before {
     content: "";
@@ -124,7 +121,7 @@ body {
     height: 50px;
     background-color: transparent;
     border-radius: 50%;
-  /*  box-shadow: -35px 35px 0 10px var(--background-color); /* سایه */
+ 
     pointer-events: none;
 }
 
@@ -138,7 +135,7 @@ body {
     height: 50px;
     background-color: transparent;
     border-radius: 50%;
-   /* box-shadow: -35px -35px 0 10px var(--background-color); /* سایه */
+  
     pointer-events: none;
 }
 
@@ -228,108 +225,108 @@ body {
     padding-right: 20px;
     min-height: 100vh;
     font-family: "Vazirmatn", sans-serif !important;
-    background-color: #f9f9f4; /* رنگ پس زمینه اصلی */
+    background-color: #f9f9f4;
 }
 
 .question {
-    padding: 30px; /* افزایش حاشیه */
-    background-color: white; /* پس زمینه فرم */
-    border-radius: 50px; /* تغییر شکل گوشه‌ها */
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
+    padding: 30px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1);
     margin: 25px auto;
-    transition: all 0.3s; /* انتقال نرم */
+    transition: all 0.3s;
 }
 
 .question:hover {
-    transform: scale(1.02); /* بزرگ کردن فرم هنگام هاور */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر هنگام هاور */
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .label {
     font-weight: bold;
-    color: #64bedb; /* رنگ متن */
-    margin-top: 25px; /* فاصله بیشتر */
+    color: #64bedb;
+    margin-top: 25px;
     padding: 10px;
     margin-bottom: 10px;
 }
 
 button[type="button"] {
-    background-color: #d93e5b; /* رنگ قرمز */
+    background-color: #d93e5b;
     color: white;
-    border: none; /* حذف حاشیه */
-    border-radius: 5px; /* گوشه‌های گرد */
-    padding: 10px 20px; /* حاشیه داخلی */
-    font-size: 16px; /* اندازه فونت */
-    cursor: pointer; /* تغییر نشانگر */
-    transition: background-color 0.2s, transform 0.2s; /* برای انیمیشن */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
     font-family: "Vazirmatn", sans-serif !important;
 }
 
 button[type="button"]:hover {
-    background-color: #b6364e; /* رنگ قرمز تیره بر روی هاور */
-    transform: translateY(-2px); /* حرکت کمی به بالا */
+    background-color: #b6364e;
+    transform: translateY(-2px);
 }
 
  .box{
     width: 100%;
     padding: 10px;
-    border: 1px double #999; /* حاشیه خاکستری */
-    border-radius:10px; /* گوشه‌های گرد */
+    border: 1px double #999;
+    border-radius:10px;
     margin-bottom: 25px;
-    transition: border-color 0.3s; /* انتقال نرم */
+    transition: border-color 0.3s;
 }
 
 .box:focus {
-    border-color: #64bedb; /* رنگ کادر روی فکوس */
-    outline: none; /* حذف کادر */
+    border-color: #64bedb;
+    outline: none;
     transform: translateY(-2px);
 }
 
 .titr {
-    color: #204a73; /* رنگ عنوان */
+    color: #204a73;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 20px; /* فاصله زیر عنوان */
+    margin-bottom: 20px;
 }
 .post {
-    padding: 30px; /* افزایش حاشیه */
-    background-color: white; /* پس زمینه فرم */
-    border-radius: 50px; /* تغییر شکل گوشه‌ها */
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
+    padding: 30px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1);
     margin-top: 25px;
     margin-left: auto;
-    transition: all 0.3s; /* انتقال نرم */
+    transition: all 0.3s;
 }
 
 .post:hover {
-    transform: scale(1.02); /* بزرگ کردن فرم هنگام هاور */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر هنگام هاور */
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 .comment-top {
-    border-bottom: 1px solid #204a73; /* خط جداکننده */
-    padding: 15px 0; /* حاشیه داخلی بیشتر */
-    display: flex; /* طرح افقی */
+    border-bottom: 1px solid #204a73;
+    padding: 15px 0;
+    display: flex;
 }
 
 .votings {
-    margin: 0 10px; /* حاشیه مجدد */
+    margin: 0 10px;
     display: flex;
-    align-items: center; /* تراز عمودی */
+    align-items: center;
 
 }
 
 .votings i {
-    cursor: pointer; /* نشانگر موس روی آیکون‌های رأی */
-    color: #204a73; /* رنگ آیکون‌های رأی */
-    transition: color 0.3s; /* انتقال نرم رنگ */
+    cursor: pointer;
+    color: #204a73;
+    transition: color 0.3s;
 }
 
 .votings i:hover {
-    color: #7099b8; /* رنگ روشن‌تر بر روی هاور */
+    color: #7099b8;
 }
 
 .post-title {
-    flex-grow: 1; /* اجازه رشد به باقی مانده */
+    flex-grow: 1;
 }
 
 .text-muted {
@@ -346,72 +343,72 @@ span.text-muted{
 }
 
 h4.text-primary {
-    color: #204a73; /* رنگ عنوان */
-    margin: 7px 0; /* حاشیه عمودی */
+    color: #204a73;
+    margin: 7px 0;
 
     font-weight: bolder;
 
 }
 
 h5.text-secondary {
-    color: #64bedb; /* رنگ برچسب‌ها */
-    margin: 4px 0; /* حاشیه عمودی */
+    color: #64bedb;
+    margin: 4px 0;
 }
 
 h6.text-muted {
-    color: #7099b8; /* رنگ متن اصلی */
-    margin: 4px 0; /* حاشیه عمودی */
+    color: #7099b8;
+    margin: 4px 0;
     font-size: x-large;
 }
 
 .alert {
-    background-color: #d93e5b; /* رنگ پس زمینه نظرات */
-    padding: 12px; /* حاشیه داخلی */
-    border-radius: 5px; /* گوشه‌های گرد */
-    border: 1px solid #ccc; /* حاشیه */
+    background-color: #d93e5b;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .alert strong {
-    color: #204a73; /* رنگ نام کاربری */
+    color: #204a73;
 }
 
 #commentForm h5 {
-    color: #204a73; /* رنگ عنوان فرم */
+    color: #204a73;
 }
 
 textarea {
-    width: 100%; /* عرض کامل */
-    padding: 10px; /* حاشیه داخلی */
-    border: 1px solid #ccc; /* رنگ حاشیه */
-    border-radius: 5px; /* گوشه‌های گرد */
-    transition: border-color 0.3s; /* انتقال نرم رنگ حاشیه */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
 }
 
 textarea:focus {
-    border-color: #64bedb; /* رنگ حاشیه روی فوکوس */
-    outline: none; /* حذف کادر خارجی */
+    border-color: #64bedb;
+    outline: none;
 }
 
 button[type="submit"] {
-    background-color: #d93e5b; /* رنگ دکمه */
-    color: white; /* رنگ متن دکمه */
-    padding: 10px 20px; /* حاشیه داخلی */
-    border: none; /* حذف حاشیه */
-    border-radius: 5px; /* گوشه‌های گرد */
-    cursor: pointer; /* نشانگر موس روی دکمه */
-    transition: background-color 0.3s, transform 0.2s; /* انتقال نرم */
+    background-color: #d93e5b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button[type="submit"]:hover {
-    background-color: #b6364e; /* رنگ تیره‌تر بر روی هاور */
-    transform: translateY(-2px); /* حرکت دکمه به بالا بر روی هاور */
+    background-color: #b6364e;
+    transform: translateY(-2px);
 }
 .delete{
-    background-color: #d93e5b; /* رنگ دکمه */
-    color: white; /* رنگ متن دکمه */
-    border: none; /* حذف حاشیه */
-    border-radius: 5px; /* گوشه‌های گرد */
-    cursor: pointer; /* نشانگر موس روی دکمه */
+    background-color: #d93e5b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     text-decoration: none;
     font-size: x-small;

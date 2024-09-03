@@ -1,12 +1,12 @@
 :root {
-    --background-color: #f9f9f4; /* رنگ پس‌زمینه */
-    --primary-color: #64bedb; /* رنگ آبی */
-    --accent-color: #d93e5b; /* رنگ قرمز */
-    --secondary-color: #7099b8; /* رنگ ثانویه */
-    --dark-color: #204a74; /* رنگ تیره */
+    --background-color: #f9f9f4;
+    --primary-color: #64bedb;
+    --accent-color: #d93e5b;
+    --secondary-color: #7099b8;
+    --dark-color: #204a74;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
 
 
@@ -28,7 +28,7 @@
 body {
     min-height:100vh;
     overflow-x: hidden;
-    background-color: var(--background-color); /* پس‌زمینه */
+    background-color: var(--background-color);
     box-sizing: border-box;
     }
     
@@ -37,16 +37,16 @@ body {
     position: relative;
     width: 100%;
     display: flex;
-    flex-direction: column; /* برای تنظیمات عمودی */
-    align-items: flex-start; /* برای راست‌چین کردن */
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-/* =============== Navigation ================ */
+
 .navigation {
     position: fixed;
     width: 300px;
     height: 100%;
-    background: var(--primary-color); /* رنگ آبی */
+    background: var(--primary-color);
     border-right: 15px solid var(--primary-color);
     transition: 0.5s;
     overflow: hidden;
@@ -58,7 +58,7 @@ body {
 .navigation ul {
     position: absolute;
     top: 0;
-    right: 0; /* راست چین */
+    right: 0;
     width: 100%;
     font-family: "Vazirmatn", sans-serif !important;
 }
@@ -72,13 +72,10 @@ body {
 
 .navigation ul li:hover,
 .navigation ul li.hovered {
-    background-color: var(--dark-color); /* رنگ تیره در هاور */
+    background-color: var(--dark-color);
 }
 
-/*.navigation ul li:nth-child(1) {
-    margin-bottom: 40px;
-    pointer-events: none;
-}*/
+
 
 .navigation ul li a {
     position: relative;
@@ -86,12 +83,12 @@ body {
     width: 100%;
     display: flex;
     text-decoration: none;
-    color: var(--background-color); /* رنگ متن */
+    color: var(--background-color);
 }
 
 .navigation ul li:hover a,
 .navigation ul li.hovered a {
-    color: var(--primary-color); /* رنگ آبی در هاور */
+    color: var(--primary-color);
 }
 
 .navigation ul li a .icon {
@@ -117,7 +114,7 @@ body {
     white-space: nowrap;
 }
 
-/* --------- curve outside ---------- */
+
 .navigation ul li:hover a::before,
 .navigation ul li.hovered a::before {
     content: "";
@@ -128,7 +125,7 @@ body {
     height: 50px;
     background-color: transparent;
     border-radius: 50%;
-  /*  box-shadow: -35px 35px 0 10px var(--background-color); /* سایه */
+ 
     pointer-events: none;
 }
 
@@ -142,7 +139,7 @@ body {
     height: 50px;
     background-color: transparent;
     border-radius: 50%;
-   /* box-shadow: -35px -35px 0 10px var(--background-color); /* سایه */
+  
     pointer-events: none;
 }
 
@@ -232,51 +229,51 @@ body {
     padding-right: 20px;
     min-height: 100vh;
     font-family: "Vazirmatn", sans-serif;
-    background-color: #f9f9f4; /* رنگ پس زمینه اصلی */
+    background-color: #f9f9f4;
 }
 
 
 
 h1 {
-    color: #d93e5b; /* رنگ عنوان */
+    color: #d93e5b;
     margin-bottom: 20px;
     text-align: center;
 }
 .box{
-    padding: 30px; /* افزایش حاشیه */
-    background-color: white; /* پس زمینه فرم */
-    border-radius: 50px; /* تغییر شکل گوشه‌ها */
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
+    padding: 30px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1);
     margin: 25px auto;
-    transition: all 0.3s; /* انتقال نرم */
+    transition: all 0.3s;
     width: 80%;
 }
 
 .box:hover {
-    transform: scale(1.02); /* بزرگ کردن فرم هنگام هاور */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر هنگام هاور */
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 .posts ul {
-    list-style-type: none; /* حذف لیست نقطه‌ای */
+    list-style-type: none;
     padding: 0;
 }
 
 .posts li {
-    margin: 10px 0; /* فاصله بین آیتم‌ها */
+    margin: 10px 0;
     list-style-type: none; 
 }
 
 .posts a {
-    text-decoration: none; /* حذف زیرخط لینک */
-    color: #7099b8; /* رنگ لینک */
+    text-decoration: none;
+    color: #7099b8;
     padding: 10px;
     border-radius: 5px;
-    transition: background-color 0.3s ease; /* انیمیشن تغییر رنگ */
+    transition: background-color 0.3s ease;
 }
 
 .posts a:hover {
-    background-color: #64bed8; /* رنگ پس‌زمینه هنگام هاور */
-    color: #ffffff; /* رنگ متن هنگام هاور */
+    background-color: #64bed8;
+    color: #ffffff;
 }
 
 
@@ -312,12 +309,12 @@ h1 {
     border: 1px solid #999 ;
     border-radius:10px;
     font-size: 16px;
-    transition: border-color 0.3s; /* انتقال نرم */
+    transition: border-color 0.3s;
 }
 
 .form-group input:focus {
-    border-color: #64bedb; /* رنگ کادر روی فکوس */
-    outline: none; /* حذف کادر */
+    border-color: #64bedb;
+    outline: none;
     transform: translateY(-2px);
 }
 
@@ -339,19 +336,19 @@ h1 {
     color: #f9f9f4;
 }
 .posts a:hover {
-    background-color: #64bed8; /* رنگ پس‌زمینه هنگام هاور */
-    color: #ffffff; /* رنگ متن هنگام هاور */
+    background-color: #64bed8;
+    color: #ffffff;
 }
 .profile-section {
-    padding: 30px; /* افزایش حاشیه */
-    background-color: white; /* پس زمینه فرم */
-    border-radius: 50px; /* تغییر شکل گوشه‌ها */
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1); /* سایه نرمتر */
+    padding: 30px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1);
     margin: 25px auto;
-    transition: all 0.3s; /* انتقال نرم */
+    transition: all 0.3s;
 }
 
 .profile-section:hover {
-    transform: scale(1.02); /* بزرگ کردن فرم هنگام هاور */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر هنگام هاور */
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
