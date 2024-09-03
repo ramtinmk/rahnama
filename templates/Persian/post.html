@@ -15,7 +15,6 @@
     function upvote(){
         const post_id = {{post.post_id}};
         const username = "{{username}}";
-        console.log(username)
         const data = {
             username:username,
             post_id:post_id,
@@ -108,6 +107,7 @@
             }
             return response.json(); // Parse the JSON response
         })
+        window.location.href = `/posts/${data.post_id}`;
     };
     </script>
 </head>

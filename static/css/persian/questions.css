@@ -352,3 +352,14 @@ h1 {
     transform: scale(1.02);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
+.unseen {
+    display: inline-block; /* Ensures that the span can have width/height */
+    width: 25px; /* Set the width of the circle */
+    height:25px; /* Set the height of the circle (should be equal to width) */
+    margin-left: 3px;
+    background-color: #d93e5b;
+    border: 1px solid #d93e5b;
+    border-radius: 50%; /* Makes it a circle */
+    text-align: center; /* Optional: center align text inside */
+    line-height: 25px; /* Optional: vertically center text */
+}
