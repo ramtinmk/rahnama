@@ -127,8 +127,11 @@
 
             </p>
             <div class="button-group">
+                {% if is_logged %}
                 <a class="btn btn-start" href="/questions/ask">بزن بریم</a>
+                {% else %}
                 <a class="btn btn-about" href="/login">ورود</a>
+                {% endif %}
             </div>
         </div>
         <div class="image-container">
