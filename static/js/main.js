@@ -20,5 +20,5 @@ let navbar = document.querySelector(".navbar");
 toggle.onclick = function () {
     navigation.classList.toggle("active");
     main.classList.toggle("active");
-    navbar.style.right = navigation.classList.contains("active") ? "80px" : "300px"; // تنظیم مجدد موقعیت نوار بالا
+    navbar.style.right = navigation.classList.contains("active") ? "80px" : "300px";
 };
