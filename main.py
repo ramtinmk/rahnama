@@ -667,6 +667,13 @@ def delete_comment(comment_id):
 
     return redirect(url_for("posts", post_id=post_id))
 
+@app.route("/delete-post/<post_id>")
+def delete_post(post_id):
+    
+    delete = query_db("DELETE FROM Posts WHERE post_id = ? ", [post_id])
+    print(delete)
+
+    return redirect("/myquestions")
 
 @app.route("/logout")
 def logout():
