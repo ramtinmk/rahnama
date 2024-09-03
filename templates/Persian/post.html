@@ -238,7 +238,9 @@
                         <div style="display: flex; align-items: center;">
                             <span class="bdge" style="margin-right: 5px;"></span>
                             <span class="time_ago">{{post["time_ago"]}}</span> 
+                            {% if session["username"] == username %}
                             <a href="/delete-post/{{ post.post_id}}" class="delete" > حذف سوال</a>
+                            {% endif %}
                         </div>
                         {% if session["username"] == username %}
                               
