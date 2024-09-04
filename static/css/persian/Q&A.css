@@ -403,6 +403,23 @@ button[type="submit"]:hover {
     background-color: #b6364e;
     transform: translateY(-2px);
 }
+.button-login {
+    background-color:white;
+    color:#b6364e;
+    padding: 10px 10px;
+    border:2px solid #d93e5b;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top:30px;
+    font-family: "Vazirmatn", sans-serif !important;
+    text-decoration: none;
+}
+.button-login:hover {
+    background-color: #d93e5b;
+    color: #f9f9f6;
+    transform: translateY(-2px);
+}
 .delete{
     background-color: #d93e5b;
     color: white;
