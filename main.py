@@ -35,9 +35,9 @@ swagger_config_path =os.getcwd()+"\\"+ "static"+  "\\" + os.path.join("swagger",
 swagger = Swagger(app, template_file=swagger_config_path.replace("\\","/"))
 
 google_client_id = (
-    "752114163217-acou1eavo31s8d71lbfb89l568b9bjck.apps.googleusercontent.com"
+    "YOUR_GOOGLE_CLIENT_ID"
 )
-google_client_secret = "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"
+google_client_secret = "YOUR_GOOGLE_SECRET_KEY
 google_redirect_uri = "your_google_redirect_uri_here"
 # Google OAuth Configuration
 oauth = OAuth(app)
