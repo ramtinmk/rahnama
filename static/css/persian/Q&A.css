@@ -1,0 +1,444 @@
+:root {
+    --background-color: #f9f9f4;
+    --primary-color: #64bedb;
+    --accent-color: #d93e5b;
+    --secondary-color: #7099b8;
+    --dark-color: #204a74;
+}
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+
+@media(max-width: 992px) {
+    .navbar,
+    .main {
+        width: 100%;
+        right: 0;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;}
+    
+
+body {
+    min-height:100vh;
+    overflow-x: hidden;
+    background-color: var(--background-color);
+    box-sizing: border-box;
+    }
+    
+
+.container {
+    position: relative;
+    width: 100%;
+        display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--primary-color);
+    border-right: 15px solid var(--primary-color);
+    transition: 0.5s;
+    overflow: hidden;
+}
+.navigation.active {
+    width: 80px;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    font-family: "Vazirmatn", sans-serif !important;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-radius: 30px;
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered {
+    background-color: var(--dark-color);
+}
+
+
+
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--background-color);
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+    color: var(--primary-color);
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 75px;
+    text-align:center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75rem;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+
+.navigation ul li:hover a::before,
+.navigation ul li.hovered a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+ 
+    pointer-events: none;
+}
+
+.navigation ul li:hover a::after,
+.navigation ul li.hovered a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+  
+    pointer-events: none;
+}
+
+
+
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    right: 300px;
+    min-height: 100vh;
+    background: var(--background-color);
+    transition: 0.5s;
+}
+
+.main.active {
+    width: calc(100% - 80px);
+    right: 80px;
+}
+
+  .topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  .toggle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+  }
+  
+  .search {
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+  }
+  
+  .search label {
+    position: relative;
+    width: 100%;
+  }
+  
+  .search label input {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    padding-right: 35px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid var(--black2);
+  }
+  
+  .search label ion-icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .logo {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .logo img {
+    position: absolute;
+    top: 0;
+    margin-left: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .main-content {
+    padding-right: 20px;
+    min-height: 100vh;
+    font-family: "Vazirmatn", sans-serif !important;
+    background-color: #f9f9f4;
+}
+
+.question {
+    padding: 30px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1);
+    margin: 25px auto;
+    transition: all 0.3s;
+}
+
+.question:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.label {
+    font-weight: bold;
+    color: #64bedb;
+    margin-top: 25px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button[type="button"] {
+    background-color: #d93e5b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    font-family: "Vazirmatn", sans-serif !important;
+}
+
+button[type="button"]:hover {
+    background-color: #b6364e;
+    transform: translateY(-2px);
+}
+
+ .box{
+    width: 100%;
+    padding: 10px;
+    border: 1px double #999;
+    border-radius:10px;
+    margin-bottom: 25px;
+    transition: border-color 0.3s;
+}
+
+.box:focus {
+    border-color: #64bedb;
+    outline: none;
+    transform: translateY(-2px);
+}
+
+.titr {
+    color: #204a73;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.post {
+    padding: 30px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.1);
+    margin-top: 25px;
+    margin-left: auto;
+    transition: all 0.3s;
+}
+
+.post:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.comment-top {
+    border-bottom: 1px solid #204a73;
+    padding: 15px 0;
+    display: flex;
+}
+
+.votings {
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+
+}
+
+.votings i {
+    cursor: pointer;
+    color: #204a73;
+    transition: color 0.3s;
+}
+
+.votings i:hover {
+    color: #7099b8;
+}
+
+.post-title {
+    flex-grow: 1;
+}
+
+.text-muted {
+    color: #999;
+
+}
+span.text-muted{
+    background-color:#64bedb;
+    opacity: 0.9;
+    color: #f9f9f4;
+    font-size: larger;
+    border-radius: 10px;
+    padding: 3px;
+}
+
+h4.text-primary {
+    color: #204a73;
+    margin: 7px 0;
+
+    font-weight: bolder;
+
+}
+
+h5.text-secondary {
+    color: #64bedb;
+    margin: 4px 0;
+}
+
+h6.text-muted {
+    color: #7099b8;
+    margin: 4px 0;
+    font-size: x-large;
+}
+
+.alert {
+    background-color: #d93e5b;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.alert strong {
+    color: #204a73;
+}
+
+#commentForm h5 {
+    color: #204a73;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: #64bedb;
+    outline: none;
+}
+
+button[type="submit"] {
+    background-color: #d93e5b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #b6364e;
+    transform: translateY(-2px);
+}
+.delete{
+    background-color: #d93e5b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+    font-size: x-small;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+.time_ago{
+    font-size:small;
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    
+}
+.unseen {
+    display: inline-block; /* Ensures that the span can have width/height */
+    width: 25px; /* Set the width of the circle */
+    height:25px; /* Set the height of the circle (should be equal to width) */
+    margin-left: 3px;
+    background-color: #d93e5b;
+    border: 1px solid #d93e5b;
+    border-radius: 50%; /* Makes it a circle */
+    text-align: center; /* Optional: center align text inside */
+    line-height: 25px; /* Optional: vertically center text */
+}
+.login1{
+    background-color: #d93e5b;
+     color: white;
+      padding: 10px 20px; 
+      border: none; 
+      border-radius: 5px; 
+      cursor: pointer;
+       text-decoration: none;
+}

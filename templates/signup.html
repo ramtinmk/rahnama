@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت نام</title>
+    <link href="../../static/css/persian/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+</head>
+<body>
+    <div class="box">
+        <span class="borderline"></span>
+        <form action="/signup-post" method="post">
+            <h2>ایجاد حساب کاربری</h2>
+            <div class="inputbox">
+                <input type="text" name="Username" required="">
+                <span>نام کاربری</span>
+                <i></i>
+            </div>
+            <div class="inputbox">
+                <input type="email" name="email" required="">
+                <span>ایمیل</span>
+                <i></i>
+            </div>
+            <div class="inputbox">
+                <input type="password" name="password" required="">
+                <span>رمز عبور</span>
+                <i></i>
+            </div>
+            <div class="links">
+                <a href="#">آیا حساب کاربری دارید؟</a>
+                <a href="/login">ورود</a>
+            </div>
+            <input type="submit" value="ثبت نام"/>
+        </form>
+    </div>
+</body>
+</html>

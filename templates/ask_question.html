@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حل مسأله - Solve It Place</title>
+    <link href="../../static/css/persian/Q&A.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
+    </style>
+     <script>
+        function submitForm() {
+    // Get form data
+    const title = document.getElementById('title').value;
+    const body = document.getElementById('body').value;
+    const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim());
+
+
+    // Create a JSON object
+    const data = {
+        title: title,
+        body: body,
+        tags: tags
+    };
+
+
+    // Send data to the Flask backend using fetch API
+    fetch('/save_post', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the JSON response
+    })
+    .then(data => {
+        if (data.post_id) {
+            // Redirect to the new post URL
+            window.location.href = `/posts/${data.post_id}`;
+        } else {
+            console.error('Failed to create post:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+               <!-- <li>
+                 <a href="/home">
+                        <span class="icon">
+                            <img src="../../static/images/logo.png.png" alt="logo" class="logo">
+                        </span>
+                    </a>
+                  
+                </li> -->
+                <li>
+                    <a href="/home">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title"> صفحه اصلی</span>
+                    </a>
+                </li>
+                {% if not is_logged %}
+                <li>
+                    <a href="/login">
+                        <span class="icon">
+                            <ion-icon name="log-in-outline"></ion-icon>
+                        </span>
+                        <span class="title"> ورود به حساب کاربری
+                        </span>
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="/logout">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title"> خروج از حساب کاربری
+                        </span>
+                    </a>
+                </li>
+                {% endif %}
+
+              
+                <li>
+                    <a href="/yourprofile">
+                        <span class="icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <span class="title"> پروفایل</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/questions/ask">
+                        <span class="icon">
+                            <ion-icon name="duplicate-outline"></ion-icon>
+                        </span>
+                        <span class="title"> ثبت سوال</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/myquestions">
+                        <span class="icon">
+                            <ion-icon name="documents-outline"></ion-icon>
+                        </span>
+                        <span class="title"> سوالات من</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notifications">
+                        <span class="icon">
+                            <ion-icon name="notifications-outline"></ion-icon>
+                        </span>
+                        <span class="title">{% if unseen_number!=0 %}<span class="unseen">{{unseen_number }}</span> {% endif %}پیام های جدید</span>
+                    </a>
+                </li>
+       
+                <li>
+                    <a href="/questions">
+                        <span class="icon">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                        </span>
+                        <span class="title"> تالار گفت و گو</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="search" action="/search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+
+            <div class="logo">
+                <a href="/home">  <img src="../../static/images/logo.png.png" alt=""></a>
+              </div>
+    </div>
+    <div class="main-content">
+        <div class="question">
+             <h2 class="titr">سوالات خود را اینجا بپرسید</h2>
+                <form id="myForm"  action="/posts">
+                     <label class="label" for="title">عنوان:</label><br>
+                     <input class="box" type="text" id="title" name="title" required>
+
+                     <label class="label" for="body">متن پرسش:</label><br>
+                    <textarea  class="box" id="body" name="body" required></textarea>
+
+                    <label  class="label" for="tags">برچسب‌ها (با ویرگول جدا شوند):</label><br>
+                    <input   class="box" type="text" id="tags" name="tags">
+
+                     <button type="button" onclick="submitForm()" >ارسال</button>
+                </form>
+            </div>
+        </div>
+    
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="../../static/js/main.js"></script>
+</body>
+</html>

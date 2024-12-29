@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin-top: 56px; /* Height of the navbar */
+  background-color: #f9f9f6; /* Light background */
+}
+
+.navbar {
+  background-color: #d93e5b; /* Red */
+}
+.logo {
+    display: flex;
+    width: 50px;
+    height: 50px;
+  }
+#sidebar {
+  min-width: 200px;
+  max-width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 56px; /* Adjust this value to match navbar height */
+  left: 0;
+  overflow-y: auto;
+  z-index: 100;
+  transition: all 0.3s;
+  background-color: #64bedb; /* Lighter blue */
+  color: #f9f9f6; /* Light background */
+}
+
+.sidebar {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-right: 200px;
+}
+.container {
+    margin-left: 400px; /* Adjust for sidebar width */
+}
+.list-group {
+  list-style-type: none; /* Remove dots */
+  margin: 25px;
+  text-align: center;
+}
+.list-group-item {
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+.list-group-item:hover {
+  background-color: #64bedb; /* Light grey on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+.title{
+  color:#0D47A1;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.1em;
+
+}
+#main-content {
+  margin-left: 250px;
+  transition: all 0.3s;
+  padding-top: 60px; /* Extra padding to avoid navbar overlap */
+  color: #204a73; /* Dark blue */
+}
