@@ -26,7 +26,8 @@ from database_utils import *
 
 app = Flask(__name__)
 
-port = 5000#= "persian"
+port = 5000
+
 
 
 swagger_config_path =os.getcwd()+"\\"+ "static"+  "\\" + os.path.join("swagger", "config.yaml")
@@ -66,7 +67,9 @@ def init_db():
     with app.app_context():
         db = get_db()
         with app.open_resource("data/schema.sql", mode="r") as f:
-            db.cursor().executescript(f.read())
+            schema = f.read()
+            for _ in schema.split(";"):
+                db.execute(_)
         db.commit()
 
 
@@ -124,7 +127,7 @@ app.secret_key = secrets.token_hex(16)
 @app.errorhandler(404)
 def not_found(error):
     
-    resp = make_response(render_template('persian/404.html'), 404)
+    resp = make_response(render_template('404.html'), 404)
     resp.headers['X-Something'] = 'A value'
     
     return resp
@@ -246,7 +249,7 @@ def signup_post():
                 )
                 db.commit()
 
-            except sqlite3.Error as e:
+            except sqlitecloud.Error as e:
                 app.logger.error(e)
             finally:
                 db.close()
@@ -330,6 +333,7 @@ def posts(post_id):
         views = query_db(
             "select views from Posts where post_id = ? ", [post_id], one=True
         )["views"]
+        unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username_posted],one=True)["count"]
         return render_template(
             "/post.html",
             post=post,
@@ -339,6 +343,7 @@ def posts(post_id):
             comments=comments,
             is_logged=check_is_logged(),
             views=views,
+            unseen_number=unseen_number
         )
     except Exception as e:
         print(f"Error rendering template: {e}")
@@ -381,18 +386,23 @@ def save_post():
         ]
 
         # Insert tags
-        for tag in tags:
-            tag_id = query_db(
-                "SELECT tag_id FROM Tags WHERE tag_name = ?", [tag], one=True
-            )["tag_id"]
-            cursor.execute(
-                "INSERT INTO PostTags (post_id, tag_id) VALUES (?, ?);",
-                (post_id, tag_id),
-            )
+        if len(tags)>0: 
+            for tag in tags:
+                tag_id = query_db(
+                    "SELECT tag_id FROM Tags WHERE tag_name = ?", [tag], one=True
+                )
+                if tag is not None:
+                    tag_id = tag_id["tag_id"]
+                    cursor.execute(
+                        "INSERT INTO PostTags (post_id, tag_id) VALUES (?, ?);",
+                        (post_id, tag_id),
+                    )
+                else:
+                    flash("this tag is not accepted")
 
         db.commit()
 
-    except sqlite3.Error as e:
+    except sqlitecloud.Error as e:
         db.rollback()
         app.logger.error(e)
         return jsonify({"error": str(e)}), 500
@@ -425,10 +435,11 @@ def questions():
 
     for post in posts:
         post["time_ago"] = time_ago(post["created_at"])
-    # Render the template and pass the posts, current page, and total pages
+    
 
+    unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[session["username"]],one=True)["count"]
     return render_template(
-        "/questions.html", posts=posts, page=page, total_pages=total_pages,is_logged=is_logged
+        "/questions.html", posts=posts, page=page, total_pages=total_pages,is_logged=is_logged,unseen_number=unseen_number
     )
 
 
@@ -495,7 +506,7 @@ def upvote():
         )
         db.commit()
 
-    except sqlite3.Error as e:
+    except sqlitecloud.Error as e:
         print(e)
         flash(e)
         return jsonify({"error": e})
@@ -542,7 +553,7 @@ def downvote():
         )
         db.commit()
 
-    except sqlite3.Error as e:
+    except sqlitecloud.Error as e:
         app.logger.error(e)
         flash(e)
         return jsonify({"error": e})
@@ -569,8 +580,10 @@ def notifications():
 
 
     result = query_db("UPDATE notifications SET seen = 1  where to_username = ?;",[username])
-    print(result)
-    return render_template("/notifications.html", notifs=notifs, is_logged=is_logged)
+
+    unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username],one=True)["count"]
+
+    return render_template("/notifications.html", notifs=notifs, is_logged=is_logged,unseen_number=unseen_number)
 
 
 @app.route("/search")
@@ -619,7 +632,7 @@ def profile_update():
             )
             db.commit()
 
-        except sqlite3.Error as e:
+        except sqlitecloud.Error as e:
             print(e)
         session["username"] = username
 
@@ -634,7 +647,7 @@ def profile_update():
                 "UPDATE Users SET email =? WHERE username =?;", (email, old_username)
             )
             db.commit()
-        except sqlite3.Error as e:
+        except sqlitecloud.Error as e:
             print(e)
 
     return redirect("/yourprofile")
@@ -666,7 +679,7 @@ def comment_post():
        
         cursor.execute("INSERT INTO notifications (from_username,to_username,kind,post_id) VALUES (?,?,?,?);",(username,to_username,"comment",post_id))
         db.commit()
-    except sqlite3.Error as e:
+    except sqlitecloud.Error as e:
         print(e)
     finally:
         db.close()
@@ -704,5 +717,6 @@ def get_google_oauth_token():
     return session.get("google_token")
 
 
+
 if __name__ == "__main__":
-    app.run(port=port,debug=True, use_reloader=True)
+    app.run(host='0.0.0.0',port=port,debug=True, use_reloader=True)

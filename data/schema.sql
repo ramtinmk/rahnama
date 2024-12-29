@@ -65,7 +65,8 @@ CREATE TABLE notifications(
     kind TEXT CHECK(kind IN ('view', 'upvote','comment')) NOT NULL,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     post_id INTEGER NOT NULL,
+    seen BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (from_username) REFERENCES Users(username) ON DELETE CASCADE,
     FOREIGN KEY (to_username) REFERENCES Users(username) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE
-);
+    );
