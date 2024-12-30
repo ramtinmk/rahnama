@@ -332,11 +332,17 @@ def posts(post_id):
         return "Internal server error",500
 
     try:
-        sql_query = """UPDATE Posts
-         SET views = views + 1
-         WHERE post_id = ?
-         """
-        updating = query_db(sql_query, [post_id])
+        if "viewed_posts" not in session:
+            session["viewed_posts"] = []
+
+        if post_id not in session["viewed_posts"]:
+            sql_query = """UPDATE Posts
+             SET views = views + 1
+             WHERE post_id = ?
+             """
+            updating = query_db(sql_query, [post_id])
+            session["viewed_posts"].append(post_id)
+
         views = query_db(
             "select views from Posts where post_id = ? ", [post_id], one=True
         )["views"]
