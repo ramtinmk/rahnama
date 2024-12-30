@@ -436,8 +436,10 @@ def questions():
     for post in posts:
         post["time_ago"] = time_ago(post["created_at"])
     
-
-    unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[session["username"]],one=True)["count"]
+    if is_logged:
+        unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[session["username"]],one=True)["count"]
+    else:
+        unseen_number = 0
     return render_template(
         "/questions.html", posts=posts, page=page, total_pages=total_pages,is_logged=is_logged,unseen_number=unseen_number
     )
