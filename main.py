@@ -2,7 +2,7 @@ import os
 import re
 import secrets
 from datetime import datetime, timedelta
-
+import pytz
 from flasgger import Swagger
 from flask import (
     Flask,
@@ -85,11 +85,23 @@ def is_valid_email(email: str) -> bool:
 
 
 def time_ago(datetime_str):
-    past_time = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S") + timedelta(
-        hours=3, minutes=30
-    )
-    now = datetime.now()
-    time_difference = now - past_time
+    # Desired timezone (e.g., Asia/Tehran)
+    desired_timezone = pytz.timezone('Asia/Tehran')
+
+    # Parse the input string into a naive datetime object
+    post_time = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+
+    # Make the naive datetime timezone-aware in UTC
+    post_time = pytz.utc.localize(post_time)
+
+    # Convert the UTC time to the desired timezone
+    post_time = post_time.astimezone(desired_timezone)
+
+    # Get the current time in the desired timezone
+    now = datetime.now(desired_timezone)
+
+    # Calculate the difference
+    time_difference = now - post_time
     seconds = time_difference.total_seconds()
 
     if seconds < 0:
@@ -372,7 +384,6 @@ def save_post():
             "INSERT INTO Posts (user_id, title, body) VALUES (?, ?, ?);",
             (user_id, title, body),
         )
-        db.commit()
 
         post_id = query_db("SELECT MAX(post_id) as new_post_id FROM Posts", one=True)[
             "new_post_id"
