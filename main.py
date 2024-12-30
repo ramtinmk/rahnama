@@ -1,33 +1,32 @@
+import os
 import re
 import secrets
 from datetime import datetime, timedelta
 
+from flasgger import Swagger
 from flask import (
     Flask,
     flash,
     g,
     jsonify,
+    make_response,
     redirect,
     render_template,
     request,
     session,
     url_for,
-    make_response,
-    abort
 )
-from urllib.parse import urlparse
 from flask_oauthlib.client import OAuth
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flasgger import Swagger
-import os
-
 from database_utils import *
+
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-# Load environment variables from a .env file if it exists
-from dotenv import load_dotenv
+
+
 load_dotenv()
 
 port = 5000
