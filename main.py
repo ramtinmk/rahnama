@@ -85,23 +85,16 @@ def is_valid_email(email: str) -> bool:
 
 
 def time_ago(datetime_str):
-    # تبدیل رشته‌ی تاریخ و زمان به شیء datetime
     past_time = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S") + timedelta(
         hours=3, minutes=30
     )
-
-    # گرفتن زمان فعلی
     now = datetime.now()
-
-    # محاسبه‌ی اختلاف زمان
     time_difference = now - past_time
-
-    # محاسبه‌ی اختلاف برحسب ثانیه
     seconds = time_difference.total_seconds()
 
-    print(seconds)
-    # تبدیل ثانیه به دقیقه، ساعت، روز و غیره
-    if seconds < 60:
+    if seconds < 0:
+        return "در آینده"
+    elif seconds < 60:
         return f"{int(seconds)} ثانیه پیش"
     elif seconds < 3600:
         minutes = seconds // 60
@@ -118,7 +111,6 @@ def time_ago(datetime_str):
     else:
         years = seconds // 31536000
         return f"{int(years)} سال پیش"
-
 
 
 def check_is_logged():
@@ -376,25 +368,22 @@ def save_post():
     db = get_db()
     cursor = db.cursor()
     try:
-        # Insert the post
         cursor.execute(
             "INSERT INTO Posts (user_id, title, body) VALUES (?, ?, ?);",
             (user_id, title, body),
         )
         db.commit()
 
-        # Get the post_id of the newly inserted post
         post_id = query_db("SELECT MAX(post_id) as new_post_id FROM Posts", one=True)[
             "new_post_id"
         ]
 
-        # Insert tags
-        if len(tags)>0: 
+        if len(tags) > 0:
             for tag in tags:
                 tag_id = query_db(
                     "SELECT tag_id FROM Tags WHERE tag_name = ?", [tag], one=True
                 )
-                if tag is not None:
+                if tag_id is not None:
                     tag_id = tag_id["tag_id"]
                     cursor.execute(
                         "INSERT INTO PostTags (post_id, tag_id) VALUES (?, ?);",
@@ -409,8 +398,9 @@ def save_post():
         db.rollback()
         app.logger.error(e)
         return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
-    # Return the post_id as a JSON response
     return jsonify({"post_id": post_id})
 
 
