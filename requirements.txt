@@ -4,3 +4,4 @@ Werkzeug==2.2.2
 flasgger
 sqlitecloud
 python-dotenv
+pytz
