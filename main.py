@@ -340,7 +340,7 @@ def posts(post_id):
         views = query_db(
             "select views from Posts where post_id = ? ", [post_id], one=True
         )["views"]
-        unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[username_posted],one=True)["count"]
+        unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[session["username"]],one=True)["count"]
         return render_template(
             "/post.html",
             post=post,
