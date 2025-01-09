@@ -368,7 +368,7 @@ def ask_question():
     islogged = check_is_logged()
     if islogged:
         unseen_number = query_db("select COUNT(*) as count from notifications  where seen=0 and to_username= ? ;",[session["username"]],one=True)["count"]
-    return render_template("/ask_question.html",unseen_number=unseen_number)
+    return render_template("/ask_question.html",unseen_number=unseen_number,is_logged=check_is_logged())
 
 
 @app.route("/save_post", methods=["POST"])
